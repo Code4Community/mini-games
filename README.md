@@ -7,5 +7,3 @@ The Math Blasters project is a super engaging and intriguing minigame that will 
 <== (NEXT FILE)
 
 <== (NEXT FILE)
-
-are you seeing this message
