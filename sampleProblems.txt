@@ -1,0 +1,18 @@
+ask them questions about number of sides in a shape
+if(sidesOfATriangle==3)
+
+Disney Quiz
+if(mickeysSister==Minnie)
+true
+
+if(Disney World is located in Florida && Disney World is located in California)
+true
+
+if(Elsas Sister == Ana)
+true
+
+if(Olafs favorite season == summer)
+true
+
+(Sven == a donkey)
+false, he is a reindeer
