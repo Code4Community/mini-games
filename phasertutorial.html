@@ -36,10 +36,15 @@
       }
 
       function create() {
-
       }
 
       function update() {
+        var x, y;
+        if(game.input.mousePointer.isDown) {
+            x = game.input.mousePointer.x;
+            y = game.input.mousePointer.y
+            console.log(x, y);
+        }
       }
     </script>
   </body>
