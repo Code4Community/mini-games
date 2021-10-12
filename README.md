@@ -43,3 +43,7 @@ How to run Phaser
         Windows: python -m http.server
         macOS/Linux: python3 -m http.server
     d.Open this page in your web browser: http://localhost:8000
+    
+    
+    Link to user input article: https://www.thepolyglotdeveloper.com/2020/09/accept-text-input-user-phaser-game/
+
