@@ -34,10 +34,12 @@
 
       function preload() {
         
+        this.load.image('bg', 'assets/space.jpeg');
       }
 
       function create() {
-        // var r1 = this.add.rectangle(200, 200, 148, 148, 0x6666ff); // breaks game
+        
+        this.add.image(400, 300, 'bg');
 
         var question1 = [
           "Disney Quiz:",
@@ -45,8 +47,9 @@
           "if (mickey's sister == Minnie)",
           "",
           "(User enter input)"
-        ];
+        ];*/
 
+        // var r1 = this.add.rectangle(300, 100, 200, 200, "#594E4C");
         var graphics = this.make.graphics();
 
         graphics.fillRect(200, 100, 400, 150);
@@ -56,6 +59,8 @@
 
         var text = this.add.text(300, 100, question1, { fontFamily: 'Arial', color: '#00ff00', wordWrap: { 
           width: 500 } }).setOrigin(0);
+        
+        
 
       }
 
