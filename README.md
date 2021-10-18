@@ -31,15 +31,15 @@ Another Mini-game:
 <== (MathBlaster.js)
 
 
-How to run Phaser
-1.Install Python
-    a.Download and run the installer to the latest version of Python
-    b.If on windows, check "Add Python VERSION to Path"
-    c.Wait for installation to finish
-2.Run Python Web Server
-    a.Open Phaser project in VSCode
-    b.Open new terminal within VSCode (Terminal > New Terminal)
-    c.In terminal run the following command
-        Windows: python -m http.server
-        macOS/Linux: python3 -m http.server
-    d.Open this page in your web browser: http://localhost:8000
+**How to run Phaser**
+1. Install Python
+* Download and run the installer to the latest version of Python
+* If on windows, check "Add Python VERSION to Path"
+* Wait for installation to finish
+2. Run Python Web Server
+* Open Phaser project in VSCode
+* Open new terminal within VSCode (Terminal > New Terminal)
+* In terminal run the following command
+   * Windows: python -m http.server
+   * macOS/Linux: python3 -m http.server
+* Open this page in your web browser: http://localhost:8000
