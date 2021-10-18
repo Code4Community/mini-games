@@ -43,3 +43,8 @@ Another Mini-game:
    * Windows: python -m http.server
    * macOS/Linux: python3 -m http.server
 * Open this page in your web browser: http://localhost:8000
+
+**Troubleshooting**
+1. Basic functionality does not work.
+* Make sure the <head> contains 
+    * <script src="https://cdn.jsdelivr.net/npm/phaser@3.24.1/dist/phaser.min.js"></script>
