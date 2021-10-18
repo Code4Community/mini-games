@@ -2,7 +2,7 @@
   <head>
     <meta charset="UTF-8" />
     <title>Making your first Phaser 3 Game - Part 10</title>
-    <script src="//cdn.jsdelivr.net/npm/phaser@3.11.0/dist/phaser.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/phaser@3.23.0/dist/phaser.min.js"></script>
     <style type="text/css">
       body {
         margin: 0;
@@ -47,18 +47,19 @@
           "if (mickey's sister == Minnie)",
           "",
           "(User enter input)"
-        ];*/
+        ];
 
-        // var r1 = this.add.rectangle(300, 100, 200, 200, "#594E4C");
-        var graphics = this.make.graphics();
+        this.time.addEvent({
+          delay: 1500,
+          callback: ()=>{
+            var r1 = this.add.rectangle(400, 150, 300, 200, 0x3c3c3f);
 
-        graphics.fillRect(200, 100, 400, 150);
-        graphics.strokeRect(200, 100, 400, 150);
-
-        this.defaultFillColor = 115, 0, 0;
-
-        var text = this.add.text(300, 100, question1, { fontFamily: 'Arial', color: '#00ff00', wordWrap: { 
-          width: 500 } }).setOrigin(0);
+            var text = this.add.text(300, 100, question1, { fontFamily: 'Arial', color: '#00ff00', wordWrap: { 
+            width: 500 } }).setOrigin(0);
+          },
+          loop: true
+        })
+        
         
         
 
