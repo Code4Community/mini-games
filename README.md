@@ -46,3 +46,8 @@ Another Mini-game:
 * used links:
     * https://phaser.io/examples/v3/view/input/dragging/scrolling-text-box
     * https://phaser.io/examples/v3/view/game-objects/shapes/rectangle
+
+**Troubleshooting**
+1. Basic functionality does not work.
+* Make sure the <head> contains 
+    * <script src="https://cdn.jsdelivr.net/npm/phaser@3.24.1/dist/phaser.min.js"></script>
