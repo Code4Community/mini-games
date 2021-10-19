@@ -18,7 +18,7 @@
         physics: {
           default: "arcade",
           arcade: {
-            gravity: { y: 300 },
+            gravity: { y: 0 },
             debug: false,
           },
         },
@@ -32,11 +32,15 @@
       var game = new Phaser.Game(config);
 
       function preload() {
-        this.load.image('star', 'assets/star.png'); 
+        this.load.image('star', 'assets/star.png');
       }
 
       function create() {
-       var target = this.add.image(400, 300, 'star');
+        stars = this.physics.add.group({
+            key: 'star',
+            repeat: 11,
+            setXY: { x: 12, y: 300, stepX: 70 }
+        });
 
       }
 
@@ -47,7 +51,6 @@
             y = game.input.mousePointer.y
             console.log(x, y);
         }
-
 
       }
 
