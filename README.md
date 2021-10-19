@@ -43,6 +43,9 @@ Another Mini-game:
    * Windows: python -m http.server
    * macOS/Linux: python3 -m http.server
 * Open this page in your web browser: http://localhost:8000
+* used links:
+    * https://phaser.io/examples/v3/view/input/dragging/scrolling-text-box
+    * https://phaser.io/examples/v3/view/game-objects/shapes/rectangle
 
 **Troubleshooting**
 1. Basic functionality does not work.
