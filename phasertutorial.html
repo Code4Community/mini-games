@@ -28,14 +28,16 @@
           update: update,
         },
       };
-
+      var stars;
       var game = new Phaser.Game(config);
 
       function preload() {
-        
+        this.load.image('star', 'assets/star.png'); 
       }
 
       function create() {
+       var target = this.add.image(400, 300, 'star');
+
       }
 
       function update() {
@@ -45,7 +47,10 @@
             y = game.input.mousePointer.y;
             console.log(x, y);
         }
+
+
       }
+
     </script>
   </body>
 </html>
