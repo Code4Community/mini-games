@@ -61,8 +61,11 @@
       var question2 = [
 
       ]
-      var score = 0;
       
+      var score = 0;
+      var scoreText;
+      scoreText = this.add.text(16, 16, 'score: 0', { fontSize: '18px', fill: '#000' });
+
       this.time.addEvent({
         delay: 1500,
         callback: () => {
