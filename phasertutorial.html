@@ -50,6 +50,10 @@
 
       this.add.image(400, 300, 'bg');
 
+      var score = 0;
+      var scoreText;
+      scoreText = this.add.text(600, 300, 'score: 0', { fontSize: '32px', fill: '#000' });
+      
       var question1 = [
         "Disney Quiz:",
         "",
@@ -62,9 +66,8 @@
 
       ]
       
-      var score = 0;
-      var scoreText;
-      scoreText = this.add.text(600, 300, 'score: 0', { fontSize: '32px', fill: '#000' });
+    
+      
 
       this.time.addEvent({
         delay: 1500,
