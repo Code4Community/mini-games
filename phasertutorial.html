@@ -48,7 +48,7 @@
 
     function create() {
 
-      this.add.image(400, 300, 'bg');
+      this.add.image(640, 300, 'bg');
 
       var question1 = [
         "Disney Quiz:",
@@ -65,9 +65,9 @@
       this.time.addEvent({
         delay: 1500,
         callback: () => {
-          var r1 = this.add.rectangle(400, 150, 300, 200, 0x3c3c3f);
+          var r1 = this.add.rectangle(640, 150, 300, 200, 0x3c3c3f);
 
-          var text = this.add.text(300, 100, question1, {
+          var text = this.add.text(545, 100, question1, {
             fontFamily: 'Arial', color: '#00ff00', wordWrap: {
               width: 500
             }
