@@ -44,13 +44,27 @@
 
       }
 
+      function star() {
+        stars = this.physics.add.group({
+            key: 'star',
+            repeat: 11,
+            setXY: { x: 12, y: 300, stepX: 70 }
+        });
+      }
+
       function update() {
         var x, y;
         if(game.input.mousePointer.isDown) {
             x = game.input.mousePointer.x;
             y = game.input.mousePointer.y;
             console.log(x, y);
+            star() // create stars
         }
+
+        // to make stars disappear: do stars.clear() or stars.disablebody(), I'm not sure what the difference is?
+
+        // work on making stars disappear whenever someone clicks somewhere on the page
+        star.clear();
 
       }
 
