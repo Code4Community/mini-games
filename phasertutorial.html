@@ -86,10 +86,10 @@
       this.returnKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
 
       this.returnKey.on("down", event => {
-        let name = this.nameInput.getChildByName("name");
-        if (name.value != "") {
-          this.message.setText("Hello, " + name.value);
-          name.value = "";
+        let userInput = this.nameInput.getChildByName("name");
+        if (userInput.value != "") {
+          this.message.setText("Hello, " + userInput.value);
+          userInput.value = "";
         }
       });
     }
