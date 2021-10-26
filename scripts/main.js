@@ -1,3 +1,4 @@
+// Phaser configuration object
 var config = {
     type: Phaser.AUTO,
     parent: "game",
@@ -20,16 +21,23 @@ var config = {
     },
 };
 
+// Kickstarts the game
 var game = new Phaser.Game(config);
 
+/**
+ * Preload function required by Phaser
+ * loads assets
+ */
 function preload() {
     this.load.html("form", "../templates/form.html");
     this.load.image('bg', '../assets/space.jpeg');
 }
 
-
-
-
+/**
+ * Create function required by Phaser
+ * draws everything we want on the screen
+ * Sets up responsive actions
+ */
 function create() {
 
     this.add.image(400, 300, 'bg');
@@ -78,8 +86,10 @@ function create() {
     });
 }
 
-
-
+/**
+ * Update function required by Phaser
+ * Runs repeatedly on a cycle
+ */
 function update() {
     var x, y;
     if (game.input.mousePointer.isDown) {
