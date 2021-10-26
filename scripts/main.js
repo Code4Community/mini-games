@@ -40,6 +40,10 @@ function preload() {
  */
 function create() {
 
+    var score = 4;
+    var scoreText;
+    scoreText = this.add.text(600, 50, 'score:' + score, { fontSize: '32px', fill: '#FFFFFF' });
+    
     this.add.image(400, 300, 'bg');
 
     var question1 = [
