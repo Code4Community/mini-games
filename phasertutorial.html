@@ -83,7 +83,11 @@
         let userInput = this.nameInput.getChildByName("answer");
         if (userInput.value != "") {
           //console.log(userInput.value);
-          userInput.value = "";
+          //userInput.value = "";
+          if (userInput.value == "a") {
+            console.log("Sucess");
+            userInput.value = "";
+          }
         }
         
       });
