@@ -79,14 +79,11 @@
 
           this.returnKey.on("down", event => {
             let name = this.nameInput.getChildByName("name");
+            question1.push(name.value);
               if (name.value != "") {
-              this.message.setText([
-                "Disney Quiz:",
-                "",
-                "if (mickey's sister == Minnie)",
-                "",
-                name.value,
-              ]);
+              this.message.setText(
+                question1
+              );
               name.value = "";
               }
           });
