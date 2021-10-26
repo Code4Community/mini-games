@@ -55,43 +55,51 @@
         "",
         "if (mickey's sister == Minnie)",
         "",
-        "(User enter input)"
+        "___",
       ];
 
       var question2 = [
 
       ]
 
+      this.nameInput = this.add.dom(640, 360).createFromCache("form");
+
       this.time.addEvent({
         delay: 1500,
         callback: () => {
           var r1 = this.add.rectangle(640, 150, 300, 200, 0x3c3c3f);
 
-          var text = this.add.text(545, 100, question1, {
+          this.message = this.add.text(545, 100, question1, {
             fontFamily: 'Arial', color: '#00ff00', wordWrap: {
               width: 500
             }
           }).setOrigin(0);
-        },
-        loop: true
-      })
-      this.nameInput = this.add.dom(640, 360).createFromCache("form");
 
-      this.message = this.add.text(640, 250, "Hello, --", {
+          this.returnKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
+
+          this.returnKey.on("down", event => {
+            let name = this.nameInput.getChildByName("name");
+              if (name.value != "") {
+              this.message.setText([
+                "Disney Quiz:",
+                "",
+                "if (mickey's sister == Minnie)",
+                "",
+                name.value,
+              ]);
+              name.value = "";
+              }
+          });
+        },
+        loop: false
+      })
+
+      /* this.message = this.add.text(640, 250, "Hello, --", {
         color: "#FFFFFF",
         fontSize: 60,
         fontStyle: "bold"
       }).setOrigin(0.5);
-
-      this.returnKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
-
-      this.returnKey.on("down", event => {
-        let name = this.nameInput.getChildByName("name");
-        if (name.value != "") {
-          this.message.setText("Hello, " + name.value);
-          name.value = "";
-        }
-      });
+      */
     }
 
 
