@@ -28,10 +28,7 @@ var config = {
         repeat: 11,
         setXY: { x: 12, y: 300, stepX: 70 }
     });
-    console.log(game)
-    console.log(game.input)
-    console.log(game.input.star)   
-    game.input.star.capture = true;
+    stars.capture = true;
     // https://phaser.io/examples/v3/view/input/mouse/click-sprite
     // loops thourgh each star and for each star capture the mouse input. 
   }
@@ -52,9 +49,9 @@ var config = {
 
     // work on making stars disappear whenever someone clicks somewhere on the page
 
-    if(this.input.on('pointerdown', () => console.log('click'))) {
-      star.clear();
-    }
+    // if (this.input.on('pointerdown', () => console.log('click'))) {
+    //   game.input.star.clear();
+    // }
 
 
     // function render() {
@@ -65,10 +62,10 @@ var config = {
 
     // }
 
-    if(game.input.activePointer.leftButton.isDown == false){
-      star.clear();
-      console.log("dance");
-    }
+    // if(game.input.activePointer.leftButton.isDown == false){
+    //   star.clear();
+    //   console.log("dance");
+    // }
 
 
 
