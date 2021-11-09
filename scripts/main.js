@@ -28,6 +28,9 @@ var config = {
         repeat: 11,
         setXY: { x: 12, y: 300, stepX: 70 }
     });
+    console.log(game)
+    console.log(game.input)
+    console.log(game.input.star)   
     game.input.star.capture = true;
     // https://phaser.io/examples/v3/view/input/mouse/click-sprite
     // loops thourgh each star and for each star capture the mouse input. 
