@@ -15,16 +15,15 @@ var config = {
       update: update,
     },
   };
-  var stars;
   var game = new Phaser.Game(config);
 
   function preload() {
-    this.load.image('star', 'assets/star.png');
+    this.load.image('star', '../assets/star.png');
   }
 
   // creates stars
   function create() {
-    stars = this.physics.add.group({
+    let stars = this.physics.add.group({
         key: 'star',
         repeat: 11,
         setXY: { x: 12, y: 300, stepX: 70 }
@@ -50,9 +49,9 @@ var config = {
 
     // work on making stars disappear whenever someone clicks somewhere on the page
 
-    // if(this.input.on('pointerdown', () => console.log('click'))) {
-    //   star.clear();
-    // }
+    if(this.input.on('pointerdown', () => console.log('click'))) {
+      star.clear();
+    }
 
 
     // function render() {
