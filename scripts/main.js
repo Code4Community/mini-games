@@ -1,75 +1,49 @@
-var config = {
+// Basic setup for the game
+let config = {
     type: Phaser.AUTO,
     width: 800,
     height: 600,
     physics: {
-      default: "arcade",
-      arcade: {
-        gravity: { y: 0 },
-        debug: false,
-      },
+        default: "arcade",
+        arcade: {
+            gravity: { y: 0 },
+            debug: false,
+        },
     },
     scene: {
-      preload: preload,
-      create: create,
-      update: update,
+        preload: preload,
+        create: create,
+        update: update,
     },
-  };
-  var game = new Phaser.Game(config);
+};
 
-  function preload() {
+// Make the basic game with the config file
+var game = new Phaser.Game(config);
+
+// Runs before the create function, preloads assets
+function preload() {
     this.load.image('star', '../assets/star.png');
-  }
+}
 
-  // creates stars
-  function create() {
-    let stars = this.physics.add.group({
-        key: 'star',
-        repeat: 11,
-        setXY: { x: 12, y: 300, stepX: 70 }
-    });
-    stars.capture = true;
-    // https://phaser.io/examples/v3/view/input/mouse/click-sprite
-    // loops thourgh each star and for each star capture the mouse input. 
-  }
-  
+// Create all objects at the start of the game
+function create() {
+    this.target = this.add.image(game.config.width / 2, game.config.height / 2, "star");
+    this.target.angle = 25;
+    this.target.setInteractive();
 
-  
-  function update() {
+    //this will listen for a down event 
+    //on every object that is set interactive
+    this.input.on('gameobjectdown', onObjectClicked);
+}
+
+// Runs on a refresh cycle, manages created objects
+function update() {
     var x, y;
-    if(game.input.mousePointer.isDown) {
-        x = game.input.mousePointer.x;
-        y = game.input.mousePointer.y;
-        console.log(x, y);
-        star.create() // create stars
+    if (game.input.mousePointer.isDown) {
+        console.log("Someone clicked")
     }
-    
+}
 
-    // to make stars disappear: do stars.clear() or stars.disablebody(), I'm not sure what the difference is?
-
-    // work on making stars disappear whenever someone clicks somewhere on the page
-
-    // if (this.input.on('pointerdown', () => console.log('click'))) {
-    //   game.input.star.clear();
-    // }
-
-
-    // function render() {
-
-    //   game.debug.text("Left Button: " + game.input.activePointer.leftButton.isDown, 300, 132);
-    //   game.debug.text("Middle Button: " + game.input.activePointer.middleButton.isDown, 300, 196);
-    //   game.debug.text("Right Button: " + game.input.activePointer.rightButton.isDown, 300, 260);
-
-    // }
-
-    // if(game.input.activePointer.leftButton.isDown == false){
-    //   star.clear();
-    //   console.log("dance");
-    // }
-
-
-
-    // stars on the screen dissapper
-    //star.clear();
-
-  }
+function onObjectClicked(pointer, gameObject) {
+    gameObject.angle+=10;
+}
