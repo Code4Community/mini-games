@@ -33,7 +33,13 @@ function preload() {
     this.load.html("form", "../templates/form.html");
     this.load.image('bg', '../assets/space.jpeg');
 }
-
+var question1 = [
+    "Disney Quiz:",
+    "",
+    "if (mickey's sister == Minnie)",
+    "",
+    "(User enter input)"
+];
 /**
  * Create function required by Phaser
  * draws everything we want on the screen
@@ -54,13 +60,13 @@ function create() {
     
     //this.add.image(400, 300, 'bg');
 
-    var question1 = [
-        "Disney Quiz:",
-        "",
-        "if (mickey's sister == Minnie)",
-        "",
-        "(User enter input)"
-    ];
+    //var question1 = [
+    //    "Disney Quiz:",
+    //    "",
+    //    "if (mickey's sister == Minnie)",
+    //    "",
+    //    "(User enter input)"
+    //];
     this.nameInput = this.add.dom(640, 360).createFromCache("form");
 
     this.message = this.add.text(640, 250, "Hello, --", {
@@ -73,11 +79,18 @@ function create() {
 
     this.returnKey.on("down", event => {
         let name = this.nameInput.getChildByName("name");
+        var user = name.value;
         if (name.value != "") {
             this.message.setText("Hello, " + name.value);
+            user = name.value;
             name.value = "";
+            
         }
+        var bool = validateQuestion(question1, user);
+        console.log(bool);
     });
+
+    
 }
 
 /**
@@ -111,4 +124,16 @@ function onObjectClicked(pointer, gameObject) {
 
 function popUpQuestion() {
 
+}
+
+const questions = [question1];
+const answers = ["true"];
+function validateQuestion(question, userInput) {
+    var correctness = false;
+    var index = questions.indexOf(question);
+
+    if (userInput == answers[index]) {
+        correctness = true;
+    }
+    return correctness;
 }
