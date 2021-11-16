@@ -40,6 +40,11 @@ var question1 = [
     "",
     "(User enter input)"
 ];
+var question2 = [
+    "if (Sven == a donkey)",
+    "",
+    "(User enter input)"
+];
 /**
  * Create function required by Phaser
  * draws everything we want on the screen
@@ -86,7 +91,7 @@ function create() {
             name.value = "";
             
         }
-        var bool = validateQuestion(question1, user);
+        var bool = validateQuestion(question2, user);
         console.log(bool);
     });
 
@@ -126,8 +131,8 @@ function popUpQuestion() {
 
 }
 
-const questions = [question1];
-const answers = ["true"];
+const questions = [question1, question2];
+const answers = ["true", "false"];
 function validateQuestion(question, userInput) {
     var correctness = false;
     var index = questions.indexOf(question);
