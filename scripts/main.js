@@ -108,3 +108,7 @@ function onObjectClicked(pointer, gameObject) {
     showQuestion() 
 
 }
+
+function popUpQuestion() {
+
+}
