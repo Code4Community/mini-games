@@ -24,6 +24,9 @@ let config = {
 // Make the basic game with the config file
 var game = new Phaser.Game(config);
 
+// Target to hit, global var
+let target;
+
 /**
  * Preload function required by Phaser
  * loads assets
@@ -40,13 +43,13 @@ function preload() {
  * Sets up responsive actions
  */
 function create() {
-    this.target = this.add.image(150, 150, "star");
-    this.target.angle = 25;
-    this.target.setInteractive();
+    target = this.add.image(150, 150, "star");
+    target.angle = 25;
+    target.setInteractive();
 
     //this will listen for a down event
     //on every object that is set interactive
-    this.input.on('gameobjectdown', onObjectClicked);
+    this.input.on('gameobjectdown', onObjectClicked, this);
 
     var score = 4;
     var scoreText;
