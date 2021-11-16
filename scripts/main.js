@@ -61,20 +61,6 @@ function create() {
         "",
         "(User enter input)"
     ];
-
-    this.time.addEvent({
-        delay: 1500,
-        callback: () => {
-            var r1 = this.add.rectangle(400, 150, 300, 200, 0x3c3c3f);
-
-            var text = this.add.text(300, 100, question1, {
-                fontFamily: 'Arial', color: '#00ff00', wordWrap: {
-                    width: 500
-                }
-            }).setOrigin(0);
-        },
-        loop: true
-    })
     this.nameInput = this.add.dom(640, 360).createFromCache("form");
 
     this.message = this.add.text(640, 250, "Hello, --", {
@@ -106,7 +92,19 @@ function update() {
         console.log(x, y);
     }
 }
+function  showQuestion() {
+    var r1 = this.add.rectangle(400, 150, 300, 200, 0x3c3c3f);
+    var text = this.add.text(300, 100, question1, {
+    fontFamily: 'Arial', color: '#00ff00', wordWrap: {
+        width: 500
+            }
+        }).setOrigin(0);
 
+}
+var reg = {};
 function onObjectClicked(pointer, gameObject) {
     gameObject.angle+=10;
+    console.log(pointer)
+    showQuestion() 
+
 }
