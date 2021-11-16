@@ -110,3 +110,7 @@ function update() {
 function onObjectClicked(pointer, gameObject) {
     gameObject.angle+=10;
 }
+
+function popUpQuestion() {
+
+}
