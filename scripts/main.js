@@ -43,6 +43,8 @@ function preload() {
  * Sets up responsive actions
  */
 function create() {
+    // this is an example of phaser.scene
+
     target = this.add.image(150, 150, "star");
     target.angle = 25;
     target.setInteractive();
@@ -95,23 +97,27 @@ function update() {
         console.log(x, y);
     }
 }
-function  showQuestion() {
-    var r1 = this.add.rectangle(400, 150, 300, 200, 0x3c3c3f);
-    var text = this.add.text(300, 100, question1, {
-    fontFamily: 'Arial', color: '#00ff00', wordWrap: {
-        width: 500
+
+function showQuestion() {
+    console.log(scene)
+    var r1 = scene.add.rectangle(400, 150, 300, 200, 0x3c3c3f);
+    var text = scene.add.text(
+        300,
+        100,
+        question1,
+        {
+            fontFamily: 'Arial', color: '#00ff00', wordWrap: {
+                width: 500
             }
-        }).setOrigin(0);
-
-}
-var reg = {};
-function onObjectClicked(pointer, gameObject) {
-    gameObject.angle+=10;
-    console.log(pointer)
-    showQuestion() 
-
+        }
+    ).setOrigin(0);
 }
 
-function popUpQuestion() {
-
+function onObjectClicked(pointer, object, thirdParam) {
+    // Rotate the object
+    object.angle+=10;
+    // testing
+    console.log(thirdParam);
+    // Pop up the question
+    showQuestion();
 }
