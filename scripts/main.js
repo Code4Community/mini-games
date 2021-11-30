@@ -87,12 +87,19 @@ var MyScene = new Phaser.Class({
         }
     },
     
-    question: [
-        "Disney Quiz:",
-        "",
-        "if (mickey's sister == Minnie)",
-        "",
-        "(User enter input)"
+    questionList: [
+        {
+            qInfo: "What is 2 + 2 ?",
+            qAnswer: "4",
+        },
+        {
+            qInfo: "What is 10 + 2 ?",
+            qAnswer: "12",
+        },
+        {
+            qInfo: "What is 13 + 2 ?",
+            qAnswer: "15",
+        },
     ],
     
     showQuestion: function ()
@@ -101,7 +108,7 @@ var MyScene = new Phaser.Class({
         var text = this.add.text(
             300,
             100,
-            this.question,
+            this.questionList[Math.random(2)].qInfo, 
             {
                 fontFamily: 'Arial', color: '#00ff00', wordWrap: {
                     width: 500
