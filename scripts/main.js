@@ -91,6 +91,7 @@ var MyScene = new Phaser.Class({
         {
             qInfo: "What is 2 + 2 ?",
             qAnswer: "4",
+            
         },
         {
             qInfo: "What is 10 + 2 ?",
@@ -104,11 +105,14 @@ var MyScene = new Phaser.Class({
     
     showQuestion: function ()
     {
+        let randomNum = parseInt(Math.random() * (this.questionList.length));
+        console.log(randomNum);
         var r1 = this.add.rectangle(400, 150, 300, 200, 0x3c3c3f);
         var text = this.add.text(
             300,
             100,
-            this.questionList[Math.random(2)].qInfo, 
+
+            this.questionList[randomNum].qInfo, 
             {
                 fontFamily: 'Arial', color: '#00ff00', wordWrap: {
                     width: 500
