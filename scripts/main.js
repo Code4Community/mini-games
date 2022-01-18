@@ -128,7 +128,7 @@ var MyScene = new Phaser.Class({
         console.log("Correct Answer:");
         console.log(this.questionList[this.currentQuestionIndex].qAnswer);
 
-        returnVal = this.questionList[this.currentQuestionIndex].qAnswer === this.nameInput;
+        returnVal = this.questionList[this.currentQuestionIndex].qAnswer === userAnswer;
         console.log(returnVal);
         return returnVal;
     },
