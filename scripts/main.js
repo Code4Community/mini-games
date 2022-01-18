@@ -70,7 +70,7 @@ var MyScene = new Phaser.Class({
                 this.message.setText("Hello, " + name.value);
                 name.value = "";
             }
-            this.scence.answerChecker();
+            this.checkAnswer();
         });
     },
 
@@ -124,7 +124,7 @@ var MyScene = new Phaser.Class({
         ).setOrigin(0);
     },
 
-    answerChecker: function()
+    checkAnswer: function()
     {
         if (this.questionList[this.currentQuestionIndex].qAnswer == this.nameInput) {
             console.log("correct");
