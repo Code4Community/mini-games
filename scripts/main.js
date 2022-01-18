@@ -70,6 +70,7 @@ var MyScene = new Phaser.Class({
                 this.message.setText("Hello, " + name.value);
                 name.value = "";
             }
+            this.scence.answerChecker();
         });
     },
 
@@ -102,23 +103,37 @@ var MyScene = new Phaser.Class({
             qAnswer: "15",
         },
     ],
+
+    currentQuestionIndex: 0,
     
     showQuestion: function ()
     {
-        let randomNum = parseInt(Math.random() * (this.questionList.length));
-        console.log(randomNum);
+        this.currentQuestionIndex = parseInt(Math.random() * (this.questionList.length));
+        console.log(this.currentQuestionIndex);
         var r1 = this.add.rectangle(400, 150, 300, 200, 0x3c3c3f);
         var text = this.add.text(
             300,
             100,
 
-            this.questionList[randomNum].qInfo, 
+            this.questionList[this.currentQuestionIndex].qInfo, 
             {
                 fontFamily: 'Arial', color: '#00ff00', wordWrap: {
                     width: 500
                 }
             }
         ).setOrigin(0);
+    },
+
+    answerChecker: function()
+    {
+        if (this.questionList[this.currentQuestionIndex].qAnswer == this.nameInput) {
+            console.log("correct");
+            return true;
+        }
+        else {
+            console.log("wrong");
+            return false;
+        }
     },
 
     onObjectClicked: function(object) 
