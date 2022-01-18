@@ -126,14 +126,11 @@ var MyScene = new Phaser.Class({
 
     checkAnswer: function()
     {
-        if (this.questionList[this.currentQuestionIndex].qAnswer == this.nameInput) {
-            console.log("correct");
-            return true;
-        }
-        else {
-            console.log("wrong");
-            return false;
-        }
+        console.log(this.nameInput);
+        console.log(this.questionList[this.currentQuestionIndex].qAnswer);
+        returnVal = this.questionList[this.currentQuestionIndex].qAnswer === this.nameInput;
+        console.log(returnVal);
+        return returnVal;
     },
 
     onObjectClicked: function(object) 
