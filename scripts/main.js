@@ -66,10 +66,7 @@ var MyScene = new Phaser.Class({
 
         this.returnKey.on("down", event => {
             let name = this.nameInput.getChildByName("name");
-            if (name.value != "") {
-                this.message.setText("Hello, " + name.value);
-                name.value = "";
-            }
+            this.message.setText("Hello, " + name.value);
             this.checkAnswer(name.value);
         });
     },
