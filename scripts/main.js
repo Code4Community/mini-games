@@ -31,8 +31,6 @@ var MyScene = new Phaser.Class({
         this.load.html("form", "../templates/form.html");
         this.load.image('bg', '../assets/space.jpeg');
 
-        this.gameWidth = this.sys.game.canvas.width;
-        this.gameHeight = this.sys.game.canvas.height;
     },
 
     /**
@@ -57,13 +55,13 @@ var MyScene = new Phaser.Class({
         //this.add.image(400, 300, 'bg');
 
     
-        this.nameInput = this.add.dom(640, 360).createFromCache("form");
+        this.nameInput = this.add.dom(this.sys.game.canvas.width/2, this.sys.game.canvas.height-75).createFromCache("form");
 
-        this.message = this.add.text(640, 250, "Hello, --", {
-            color: "#FFFFFF",
-            fontSize: 60,
-            fontStyle: "bold"
-        }).setOrigin(0.5);
+        // this.message = this.add.text(this.sys.game.canvas.width/4, 50, "Hello, --", {
+        //     color: "#FFFFFF",
+        //     fontSize: 60,
+        //     fontStyle: "bold"
+        // }).setOrigin(0.5);
 
         this.returnKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
 
