@@ -40,9 +40,21 @@ var MyScene = new Phaser.Class({
      */
     create: function ()
     {
-        target = this.add.image(150, 150, "star");
-        target.angle = 25;
-        target.setInteractive();
+        // target = this.add.image(150, 150, "star");
+        // target.angle = 25;
+        // target.setInteractive();
+
+        let count =0;
+        let target =[];
+        
+        for (let i=20;i<this.sys.game.canvas.width;i+=50){
+            for (let j= 50;j<this.sys.game.canvas.height;j+=50){
+target[count] = this.add.image(i,j,"star");
+target[count].angle = 25;//try to vary angle with random later
+target[count].setInteractive();
+count++;
+            }
+        }
 
         //this will listen for a down event
         //on every object that is set interactive
