@@ -37,15 +37,15 @@ var MyScene = new Phaser.Class({
      * Sets up responsive actions
      */
     create: function () {
-        // target = this.add.image(150, 150, "star");
-        // target.angle = 25;
-        // target.setInteractive();
+        
+        gameWidth = this.sys.game.canvas.width;
+        gameHeight = this.sys.game.canvas.height;
 
         let count = 0;
         let target = [];
 
-        for (let i = 20; i < this.sys.game.canvas.width; i += 50) {
-            for (let j = 50; j < this.sys.game.canvas.height; j += 50) {
+        for (let i = 20; i < gameWidth; i += 50) {
+            for (let j = 50; j < gameHeight; j += 50) {
                 target[count] = this.add.image(i, j, "star");
                 target[count].angle = Math.floor(Math.random() * 180);//try to vary angle with random later
                 target[count].setInteractive();
