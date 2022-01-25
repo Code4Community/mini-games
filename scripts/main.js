@@ -42,6 +42,9 @@ var MyScene = new Phaser.Class({
      */
     create: function ()
     {
+        gameWidth = this.sys.game.canvas.width;
+        gameHeight = this.sys.game.canvas.height;
+
         target = this.add.image(150, 150, "star");
         target.angle = 25;
         target.setInteractive();
@@ -50,20 +53,15 @@ var MyScene = new Phaser.Class({
         //on every object that is set interactive
         this.input.on('gameobjectdown', this.onObjectClicked);
 
-        var score = 4;
         var scoreText;
-        scoreText = this.add.text(this.sys.game.canvas.width-150, 50, 'score:' + score, { fontSize: '32px', fill: '#FFFFFF' });
+        scoreText = this.add.text(gameWidth - 150, 10, 'score:' + this.score, { margin: "100px", fontSize: '24pt' });
         
         //this.add.image(400, 300, 'bg');
 
     
         this.nameInput = this.add.dom(640, 360).createFromCache("form");
 
-        this.message = this.add.text(640, 250, "Hello, --", {
-            color: "#FFFFFF",
-            fontSize: 60,
-            fontStyle: "bold"
-        }).setOrigin(0.5);
+        this.message = this.add.text(640, 250, "Hello, --", { fontSize: '24pt' }).setOrigin(0.5);
 
         this.returnKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
 
@@ -97,6 +95,8 @@ var MyScene = new Phaser.Class({
         "",
         "(User enter input)"
     ],
+
+    score: 0,
     
     showQuestion: function ()
     {
@@ -107,7 +107,7 @@ var MyScene = new Phaser.Class({
             this.sys.game.canvas.height/2 - 75,
             this.question,
             {
-                fontFamily: 'Arial', color: '#00ff00', wordWrap: {
+                fontFamily: 'Courier New', color: '#ffffff', wordWrap: {
                     width: 500
                 }
             }
