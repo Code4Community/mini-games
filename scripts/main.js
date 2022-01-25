@@ -52,7 +52,7 @@ var MyScene = new Phaser.Class({
 
         var score = 4;
         var scoreText;
-        scoreText = this.add.text(600, 50, 'score:' + score, { fontSize: '32px', fill: '#FFFFFF' });
+        scoreText = this.add.text(this.sys.game.canvas.width-150, 50, 'score:' + score, { fontSize: '32px', fill: '#FFFFFF' });
         
         //this.add.image(400, 300, 'bg');
 
@@ -103,8 +103,8 @@ var MyScene = new Phaser.Class({
         var r1 = this.add.rectangle(this.sys.game.canvas.width/2, this.sys.game.canvas.height/2, 300, 200, 0x3c3c3f);
 
         var text = this.add.text(
-            300,
-            100,
+            this.sys.game.canvas.width/2 -100,
+            this.sys.game.canvas.height/2 - 75,
             this.question,
             {
                 fontFamily: 'Arial', color: '#00ff00', wordWrap: {
