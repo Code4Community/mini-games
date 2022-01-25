@@ -66,10 +66,8 @@ var MyScene = new Phaser.Class({
 
         this.returnKey.on("down", event => {
             let name = this.nameInput.getChildByName("name");
-            if (name.value != "") {
-                this.message.setText("Hello, " + name.value);
-                name.value = "";
-            }
+            this.message.setText("Hello, " + name.value);
+            this.checkAnswer(name.value);
         });
     },
 
@@ -87,27 +85,52 @@ var MyScene = new Phaser.Class({
         }
     },
     
-    question: [
-        "Disney Quiz:",
-        "",
-        "if (mickey's sister == Minnie)",
-        "",
-        "(User enter input)"
+    questionList: [
+        {
+            qInfo: "What is 2 + 2 ?",
+            qAnswer: "4",
+            
+        },
+        {
+            qInfo: "What is 10 + 2 ?",
+            qAnswer: "12",
+        },
+        {
+            qInfo: "What is 13 + 2 ?",
+            qAnswer: "15",
+        },
     ],
+
+    currentQuestionIndex: 0,
     
     showQuestion: function ()
     {
+        this.currentQuestionIndex = parseInt(Math.random() * (this.questionList.length));
+        console.log(this.currentQuestionIndex);
         var r1 = this.add.rectangle(400, 150, 300, 200, 0x3c3c3f);
         var text = this.add.text(
             300,
             100,
-            this.question,
+
+            this.questionList[this.currentQuestionIndex].qInfo, 
             {
                 fontFamily: 'Arial', color: '#00ff00', wordWrap: {
                     width: 500
                 }
             }
         ).setOrigin(0);
+    },
+
+    checkAnswer: function(userAnswer)
+    {
+        console.log("Input text:");
+        console.log(userAnswer);
+        console.log("Correct Answer:");
+        console.log(this.questionList[this.currentQuestionIndex].qAnswer);
+
+        returnVal = this.questionList[this.currentQuestionIndex].qAnswer === userAnswer;
+        console.log(returnVal);
+        return returnVal;
     },
 
     onObjectClicked: function(object) 
