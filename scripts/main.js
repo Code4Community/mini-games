@@ -5,28 +5,26 @@ var MyScene = new Phaser.Class({
 
     initialize:
 
-    function MyScene ()
-    {
-        //  Here we'll tailor the property injection map so that by default our Scene
-        //  only gets 2 properties defined on it: 'makeStuff' and 'loader'.
-        //  It will also have the property 'sys' which can never be redefined or removed.
-        var config = {
-            map: {
-                add: 'add',
-                load: 'load',
-                input: 'input'
-            }
-        };
+        function MyScene() {
+            //  Here we'll tailor the property injection map so that by default our Scene
+            //  only gets 2 properties defined on it: 'makeStuff' and 'loader'.
+            //  It will also have the property 'sys' which can never be redefined or removed.
+            var config = {
+                map: {
+                    add: 'add',
+                    load: 'load',
+                    input: 'input'
+                }
+            };
 
-        Phaser.Scene.call(this, config)
-    },
+            Phaser.Scene.call(this, config)
+        },
 
     /**
      * Preload function required by Phaser
      * loads assets
      */
-    preload: function ()
-    {
+    preload: function () {
         this.load.image('star', '../assets/star.png');
         this.load.html("form", "../templates/form.html");
         this.load.image('bg', '../assets/space.jpeg');
@@ -38,21 +36,20 @@ var MyScene = new Phaser.Class({
      * draws everything we want on the screen
      * Sets up responsive actions
      */
-    create: function ()
-    {
+    create: function () {
         // target = this.add.image(150, 150, "star");
         // target.angle = 25;
         // target.setInteractive();
 
-        let count =0;
-        let target =[];
-        
-        for (let i=20;i<this.sys.game.canvas.width;i+=50){
-            for (let j= 50;j<this.sys.game.canvas.height;j+=50){
-target[count] = this.add.image(i,j,"star");
-target[count].angle = 25;//try to vary angle with random later
-target[count].setInteractive();
-count++;
+        let count = 0;
+        let target = [];
+
+        for (let i = 20; i < this.sys.game.canvas.width; i += 50) {
+            for (let j = 50; j < this.sys.game.canvas.height; j += 50) {
+                target[count] = this.add.image(i, j, "star");
+                target[count].angle = 25;//try to vary angle with random later
+                target[count].setInteractive();
+                count++;
             }
         }
 
@@ -60,20 +57,15 @@ count++;
         //on every object that is set interactive
         this.input.on('gameobjectdown', this.onObjectClicked);
 
-        var score = 4;
         var scoreText;
-        scoreText = this.add.text(this.sys.game.canvas.width-150, 50, 'score:' + score, { fontSize: '32px', fill: '#FFFFFF' });
-        
+        scoreText = this.add.text(gameWidth - 150, 10, 'score:' + this.score, { margin: "100px", fontSize: '24pt' });
+
         //this.add.image(400, 300, 'bg');
 
-    
-        this.nameInput = this.add.dom(this.sys.game.canvas.width/2, this.sys.game.canvas.height-75).createFromCache("form");
 
-        // this.message = this.add.text(this.sys.game.canvas.width/4, 50, "Hello, --", {
-        //     color: "#FFFFFF",
-        //     fontSize: 60,
-        //     fontStyle: "bold"
-        // }).setOrigin(0.5);
+        this.nameInput = this.add.dom(this.sys.game.canvas.width / 2, this.sys.game.canvas.height - 75).createFromCache("form");
+
+        this.message = this.add.text(640, 250, "Hello, --", { fontSize: '24pt' }).setOrigin(0.5);
 
         this.returnKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
 
@@ -90,8 +82,7 @@ count++;
      * Update function required by Phaser
      * Runs repeatedly on a cycle
      */
-    update: function () 
-    {
+    update: function () {
         var x, y;
         if (game.input.mousePointer.isDown) {
             x = game.input.mousePointer.x;
@@ -99,7 +90,7 @@ count++;
             console.log(x, y);
         }
     },
-    
+
     question: [
         "Disney Quiz:",
         "",
@@ -107,27 +98,27 @@ count++;
         "",
         "(User enter input)"
     ],
-    
-    showQuestion: function ()
-    {
-        var r1 = this.add.rectangle(this.sys.game.canvas.width/2, this.sys.game.canvas.height/2, 300, 200, 0x3c3c3f);
+
+    score: 0,
+
+    showQuestion: function () {
+        var r1 = this.add.rectangle(this.sys.game.canvas.width / 2, this.sys.game.canvas.height / 2, 300, 200, 0x3c3c3f);
 
         var text = this.add.text(
-            this.sys.game.canvas.width/2 -100,
-            this.sys.game.canvas.height/2 - 75,
+            this.sys.game.canvas.width / 2 - 100,
+            this.sys.game.canvas.height / 2 - 75,
             this.question,
             {
-                fontFamily: 'Arial', color: '#00ff00', wordWrap: {
+                fontFamily: 'Courier New', color: '#ffffff', wordWrap: {
                     width: 500
                 }
             }
         ).setOrigin(0);
     },
 
-    onObjectClicked: function(object) 
-    {
+    onObjectClicked: function (object) {
         // Rotate the object
-        object.angle+=10;
+        object.angle += 10;
         // Pop up the question
         this.scene.showQuestion();
     }
