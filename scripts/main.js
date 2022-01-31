@@ -37,7 +37,7 @@ var MyScene = new Phaser.Class({
      * Sets up responsive actions
      */
     create: function () {
-        
+
         gameWidth = this.sys.game.canvas.width;
         gameHeight = this.sys.game.canvas.height;
 
@@ -51,10 +51,10 @@ var MyScene = new Phaser.Class({
                 target[count].setInteractive();
                 target[count].visible = false;
                 count++;
-                
+
             }
         }
-      
+
         //this will listen for a down event
         //on every object that is set interactive
         this.input.on('gameobjectdown', this.onObjectClicked);
