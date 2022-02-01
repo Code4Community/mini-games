@@ -93,12 +93,20 @@ var MyScene = new Phaser.Class({
         }
     },
 
-    question: [
-        "Disney Quiz:",
-        "",
-        "if (mickey's sister == Minnie)",
-        "",
-        "(User enter input)"
+    questionList: [
+        {
+            qInfo: "What is 2 + 2 ?",
+            qAnswer: "4",
+
+        },
+        {
+            qInfo: "What is 10 + 2 ?",
+            qAnswer: "12",
+        },
+        {
+            qInfo: "What is 13 + 2 ?",
+            qAnswer: "15",
+        }
     ],
 
     score: 0,
@@ -116,6 +124,18 @@ var MyScene = new Phaser.Class({
                 }
             }
         ).setOrigin(0);
+    },
+
+    checkAnswer: function(userAnswer)
+    {
+        console.log("Input text:");
+        console.log(userAnswer);
+        console.log("Correct Answer:");
+        console.log(this.questionList[this.currentQuestionIndex].qAnswer);
+
+        returnVal = this.questionList[this.currentQuestionIndex].qAnswer === userAnswer;
+        console.log(returnVal);
+        return returnVal;
     },
 
     onObjectClicked: function (object) {
