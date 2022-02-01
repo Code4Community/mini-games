@@ -93,18 +93,41 @@ var MyScene = new Phaser.Class({
 
     questionList: [
         {
-            qInfo: "What is 2 + 2 ?",
-            qAnswer: "4",
-
+            qInfo: "if(Elsas Sister == Ana)",
+            qAnswer: true,
         },
         {
-            qInfo: "What is 10 + 2 ?",
-            qAnswer: "12",
+            qInfo: "if(Olafs favorite season == summer)",
+            qAnswer: true,
         },
         {
-            qInfo: "What is 13 + 2 ?",
-            qAnswer: "15",
-        }
+            qInfo: "if(Hans loves Ana)",
+            qAnswer: false,
+        },
+        {
+            qInfo: "if(Sven == a donkey)",
+            qAnswer: false, //he is a reindeer
+        },
+        {
+            qInfo: "if(Kristoff sings Let It Go)",
+            qAnswer: false, //elsa does
+        },
+        {
+            qInfo: "if(Elsa has blonde hair && Ana has red hair)",
+            qAnswer: true, 
+        },
+        {
+            qInfo: "if(Elsa is 18 years old && Ana is 21 years old)",
+            qAnswer: false, //elsa-21, ana-18
+        },
+        {
+            qInfo: "if(Olaf has a nose && Olaf doesnt have eyebrows)",
+            qAnswer: false, //second part false
+        },
+        {
+            qInfo: "if(There are 6 spirits && Elsa is the fifth spirit)",
+            qAnswer: false, //first part false
+        },
     ],
 
     score: 0,
