@@ -114,10 +114,13 @@ var MyScene = new Phaser.Class({
     showQuestion: function () {
         var r1 = this.add.rectangle(this.sys.game.canvas.width / 2, this.sys.game.canvas.height / 2, 300, 200, 0x3c3c3f);
 
+        let randomIndex = Math.floor(Math.random() * this.questionList.length);
+
         var text = this.add.text(
+            
             this.sys.game.canvas.width / 2 - 100,
             this.sys.game.canvas.height / 2 - 75,
-            this.question,
+            this.questionList[randomIndex].qInfo,
             {
                 fontFamily: 'Courier New', color: '#ffffff', wordWrap: {
                     width: 500
