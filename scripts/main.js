@@ -128,6 +128,7 @@ var MyScene = new Phaser.Class({
             qInfo: "if(There are 6 spirits && Elsa is the fifth spirit)",
             qAnswer: false, //first part false
         },
+        //add or questions, two true, first one true, second one true, both false
     ],
 
     score: 0,
