@@ -73,10 +73,8 @@ var MyScene = new Phaser.Class({
 
         this.returnKey.on("down", event => {
             let name = this.nameInput.getChildByName("name");
-            if (name.value != "") {
-                this.message.setText("Hello, " + name.value);
-                name.value = "";
-            }
+            this.message.setText("Hello, " + name.value);
+            this.checkAnswer(name.value);
         });
     },
 
@@ -110,9 +108,15 @@ var MyScene = new Phaser.Class({
     ],
 
     score: 0,
+    currentQuestionIndex: 0,
 
     showQuestion: function () {
         var r1 = this.add.rectangle(this.sys.game.canvas.width / 2, this.sys.game.canvas.height / 2, 300, 200, 0x3c3c3f);
+        //r1 is undefined
+
+        this.currentQuestionIndex = parseInt(Math.random() * (this.questionList.length));
+        console.log(this.currentQuestionIndex);
+        console.log(this.questionList[this.currentQuestionIndex].qInfo);
 
         let randomIndex = Math.floor(Math.random() * this.questionList.length);
 
