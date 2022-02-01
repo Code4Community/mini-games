@@ -114,9 +114,7 @@ var MyScene = new Phaser.Class({
         var r1 = this.add.rectangle(this.sys.game.canvas.width / 2, this.sys.game.canvas.height / 2, 300, 200, 0x3c3c3f);
         //r1 is undefined
 
-        this.currentQuestionIndex = parseInt(Math.random() * (this.questionList.length));
-        console.log(this.currentQuestionIndex);
-        console.log(this.questionList[this.currentQuestionIndex].qInfo);
+
 
         let randomIndex = Math.floor(Math.random() * this.questionList.length);
 
