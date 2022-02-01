@@ -49,7 +49,7 @@ var MyScene = new Phaser.Class({
                 target[count] = this.add.image(i, j, "star");
                 target[count].angle = Math.floor(Math.random() * 90);
                 target[count].setInteractive();
-                target[count].visible = false;
+                target[count].visible = true;
                 count++;
 
             }
