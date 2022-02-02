@@ -51,3 +51,6 @@ Another Mini-game:
 1. Basic functionality does not work.
 * Make sure the <head> contains 
     * <script src="https://cdn.jsdelivr.net/npm/phaser@3.24.1/dist/phaser.min.js"></script>
+
+## Contribution Policy
+This project is closed to outside contributions while it is in active development.
