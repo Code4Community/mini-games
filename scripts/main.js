@@ -91,45 +91,23 @@ var MyScene = new Phaser.Class({
         }
     },
 
+    Question: function (text, answer) {
+        this.text = text;
+        this.answer = answer;
+    },
+
     // TODO: Create a question answer type (int/boolean)
     // TODO: Create a question JS constructor
     questionList: [
-        {
-            qInfo: "if(Elsas Sister == Ana)",
-            qAnswer: true,
-        },
-        {
-            qInfo: "if(Olafs favorite season == summer)",
-            qAnswer: true,
-        },
-        {
-            qInfo: "if(Hans loves Ana)",
-            qAnswer: false,
-        },
-        {
-            qInfo: "if(Sven == a donkey)",
-            qAnswer: false, //he is a reindeer
-        },
-        {
-            qInfo: "if(Kristoff sings Let It Go)",
-            qAnswer: false, //elsa does
-        },
-        {
-            qInfo: "if(Elsa has blonde hair && Ana has red hair)",
-            qAnswer: true, 
-        },
-        {
-            qInfo: "if(Elsa is 18 years old && Ana is 21 years old)",
-            qAnswer: false, //elsa-21, ana-18
-        },
-        {
-            qInfo: "if(Olaf has a nose && Olaf doesnt have eyebrows)",
-            qAnswer: false, //second part false
-        },
-        {
-            qInfo: "if(There are 6 spirits && Elsa is the fifth spirit)",
-            qAnswer: false, //first part false
-        },
+        new this.Question("if(Elsas Sister == Ana)", true),
+        new this.Question("if(Olafs favorite season == summer)", true),
+        new this.Question("if(Hans loves Ana)", false),
+        new this.Question("if(Sven == a donkey)", false), // He is a reindeer
+        new this.Question("if(Kristoff sings Let It Go)", false),
+        new this.Question("if(Elsa has blonde hair && Ana has red hair)", true),
+        new this.Question("if(Elsa is 18 years old && Ana is 21 years old)", false), // Elsa: 21, Ana: 18
+        new this.Question("if(Olaf has a nose && Olaf doesnt have eyebrows)", false), // Second part false
+        new this.Question("if(There are 6 spirits && Elsa is the fifth spirit)", false), // First part false
         //add or questions, two true, first one true, second one true, both false
     ],
 
@@ -148,7 +126,7 @@ var MyScene = new Phaser.Class({
             
             this.sys.game.canvas.width / 2 - 100,
             this.sys.game.canvas.height / 2 - 75,
-            this.questionList[this.currentQuestionIndex].qInfo,
+            this.questionList[this.currentQuestionIndex].text,
             {
                 fontFamily: 'Courier New', color: '#ffffff', wordWrap: {
                     width: 500
@@ -163,9 +141,9 @@ var MyScene = new Phaser.Class({
         console.log("Input text:");
         console.log(userAnswer);
         console.log("Correct Answer:");
-        console.log(this.questionList[this.currentQuestionIndex].qAnswer);
+        console.log(this.questionList[this.currentQuestionIndex].answer);
 
-        returnVal = this.questionList[this.currentQuestionIndex].qAnswer === userAnswer;
+        returnVal = this.questionList[this.currentQuestionIndex].answer === userAnswer;
         console.log("Did the user get the right answer?")
         console.log(returnVal);
         return returnVal;
