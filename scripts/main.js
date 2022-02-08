@@ -91,54 +91,18 @@ var MyScene = new Phaser.Class({
         }
     },
 
-    Question: function (text, answer) {
-        this.text = text;
-        this.answer = answer;
-    },
-
     // TODO: Create a question answer type (int/boolean)
     // TODO: Create a question JS constructor
     questionList: [
-        {
-            qInfo: "if(Elsas Sister == Ana)",
-            qAnswer: true,
-        },
-        {
-            qInfo: "if(Olafs favorite \nseason == summer)",
-            qAnswer: true,
-        },
-        {
-            qInfo: "if(Hans loves Ana)",
-            qAnswer: false,
-        },
-        {
-            qInfo: "if(Sven == a donkey)",
-            qAnswer: false, //he is a reindeer
-        },
-        {
-            qInfo: "if(Kristoff sings\nLet It Go)",
-            qAnswer: false, //elsa does
-        },
-        {
-            qInfo: "if(Elsa has blonde hair &&\nAna has red hair)",
-            qAnswer: true, 
-        },
-        {
-            qInfo: "if(Elsa is 18 years old && \n Ana is 21 years old)",
-            qAnswer: false, //elsa-21, ana-18
-        },
-        {
-            qInfo: "if(Olaf has a nose && Olaf \ndoesnt have eyebrows)",
-            qAnswer: false, //second part false
-        },
-        {
-            qInfo: "if(There are 6 spirits && \n Elsa is the fifth spirit)",
-            qAnswer: false, //first part false
-        },
-        {
-            qInfo: "8+8",
-            qAnswer: 16, 
-        },
+        new Question("if(Elsas Sister == Ana)", true),
+        new Question("if(Olafs favorite season == summer)", true),
+        new Question("if(Hans loves Ana)", false),
+        new Question("if(Sven == a donkey)", false), // He is a reindeer
+        new Question("if(Kristoff sings Let It Go)", false),
+        new Question("if(Elsa has blonde hair && Ana has red hair)", true),
+        new Question("if(Elsa is 18 years old && Ana is 21 years old)", false), // Elsa: 21, Ana: 18
+        new Question("if(Olaf has a nose && Olaf doesnt have eyebrows)", false), // Second part false
+        new Question("if(There are 6 spirits && Elsa is the fifth spirit)", false), // First part false
         //add or questions, two true, first one true, second one true, both false
     ],
 
@@ -218,6 +182,11 @@ let config = {
     },
     scene: MyScene
 };
+
+function Question (text, answer) {
+    this.text = text;
+    this.answer = answer;
+}
 
 // Make the basic game with the config file
 var game = new Phaser.Game(config);
