@@ -91,20 +91,19 @@ var MyScene = new Phaser.Class({
         }
     },
 
+    // TODO: Create a question answer type (int/boolean)
+    // TODO: Create a question JS constructor
     questionList: [
-        {
-            qInfo: "What is 2 + 2 ?",
-            qAnswer: "4",
-
-        },
-        {
-            qInfo: "What is 10 + 2 ?",
-            qAnswer: "12",
-        },
-        {
-            qInfo: "What is 13 + 2 ?",
-            qAnswer: "15",
-        }
+        new Question("if(Elsas Sister == Ana)", true),
+        new Question("if(Olafs favorite season == summer)", true),
+        new Question("if(Hans loves Ana)", false),
+        new Question("if(Sven == a donkey)", false), // He is a reindeer
+        new Question("if(Kristoff sings Let It Go)", false),
+        new Question("if(Elsa has blonde hair && Ana has red hair)", true),
+        new Question("if(Elsa is 18 years old && Ana is 21 years old)", false), // Elsa: 21, Ana: 18
+        new Question("if(Olaf has a nose && Olaf doesnt have eyebrows)", false), // Second part false
+        new Question("if(There are 6 spirits && Elsa is the fifth spirit)", false), // First part false
+        //add or questions, two true, first one true, second one true, both false
     ],
 
     score: 0,
@@ -132,7 +131,7 @@ var MyScene = new Phaser.Class({
             
             this.sys.game.canvas.width / 2 - 100,
             this.sys.game.canvas.height / 2 - 75,
-            this.questionList[this.currentQuestionIndex].qInfo,
+            this.questionList[this.currentQuestionIndex].text,
             {
                 fontFamily: 'Courier New', color: '#ffffff', wordWrap: {
                     width: 500
@@ -141,14 +140,27 @@ var MyScene = new Phaser.Class({
         ).setOrigin(0);
     },
 
+    // TODO: Parse an answer from this method
     checkAnswer: function(userAnswer)
     {
         console.log("Input text:");
         console.log(userAnswer);
         console.log("Correct Answer:");
-        console.log(this.questionList[this.currentQuestionIndex].qAnswer);
+        console.log(this.questionList[this.currentQuestionIndex].answer);
 
-        returnVal = this.questionList[this.currentQuestionIndex].qAnswer === userAnswer;
+        let correctAnswer = this.questionList[this.currentQuestionIndex].answer;
+        if (typeof correctAnswer === "boolean") {
+            let userAnswerBoolean = true;
+
+            if ((userAnswer.toUpperCase()) === ("FALSE")) {
+                userAnswerBoolean = false;
+            }
+            returnVal = this.questionList[this.currentQuestionIndex].answer === userAnswerBoolean;
+        }
+        else if (typeof correctAnswer === "number") {
+            returnVal = this.questionList[this.currentQuestionIndex].answer === parseInt(userAnswer);
+        }
+        console.log("Did the user get the right answer?")
         console.log(returnVal);
         return returnVal;
     },
@@ -179,6 +191,11 @@ let config = {
     },
     scene: MyScene
 };
+
+function Question (text, answer) {
+    this.text = text;
+    this.answer = answer;
+}
 
 // Make the basic game with the config file
 var game = new Phaser.Game(config);
