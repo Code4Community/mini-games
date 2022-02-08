@@ -91,6 +91,8 @@ var MyScene = new Phaser.Class({
         }
     },
 
+    // TODO: Create a question answer type (int/boolean)
+    // TODO: Create a question JS constructor
     questionList: [
         {
             qInfo: "if(Elsas Sister == Ana)",
@@ -155,6 +157,7 @@ var MyScene = new Phaser.Class({
         ).setOrigin(0);
     },
 
+    // TODO: Parse an answer from this method
     checkAnswer: function(userAnswer)
     {
         console.log("Input text:");
@@ -163,6 +166,7 @@ var MyScene = new Phaser.Class({
         console.log(this.questionList[this.currentQuestionIndex].qAnswer);
 
         returnVal = this.questionList[this.currentQuestionIndex].qAnswer === userAnswer;
+        console.log("Did the user get the right answer?")
         console.log(returnVal);
         return returnVal;
     },
