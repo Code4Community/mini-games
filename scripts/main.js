@@ -59,7 +59,7 @@ var MyScene = new Phaser.Class({
         //on every object that is set interactive
         this.input.on('gameobjectdown', this.onObjectClicked);
 
-        this.scoreText = this.add.text(gameWidth - 150, -175, 'score:' + this.score, { margin: "100px", fontSize: '24pt' });
+        this.scoreText = this.add.text(gameWidth - 200, this.sys.game.canvas.height - 600, 'score:' + this.score, { margin: "100px", fontSize: '24pt' });
 
         //this.add.image(400, 300, 'bg');
 
