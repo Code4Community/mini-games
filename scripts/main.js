@@ -59,8 +59,7 @@ var MyScene = new Phaser.Class({
         //on every object that is set interactive
         this.input.on('gameobjectdown', this.onObjectClicked);
 
-        var scoreText;
-        scoreText = this.add.text(gameWidth - 150, 10, 'score:' + this.score, { margin: "100px", fontSize: '24pt' });
+        this.scoreText = this.add.text(gameWidth - 150, 10, 'score:' + this.score, { margin: "100px", fontSize: '24pt' });
 
         //this.add.image(400, 300, 'bg');
 
@@ -110,10 +109,12 @@ var MyScene = new Phaser.Class({
 
     score: 0,
     currentQuestionIndex: 0,
+    scoreText: null,
 
     incrementScore: function (answerResult) {
         if (answerResult === true){
             this.score+=1;
+            this.scoreText.setText("Score: " + this.score);
             
 
         }
