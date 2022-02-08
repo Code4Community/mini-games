@@ -91,6 +91,11 @@ var MyScene = new Phaser.Class({
         }
     },
 
+    Question: function (text, answer) {
+        this.text = text;
+        this.answer = answer;
+    },
+
     // TODO: Create a question answer type (int/boolean)
     // TODO: Create a question JS constructor
     questionList: [
@@ -152,7 +157,7 @@ var MyScene = new Phaser.Class({
             
             this.sys.game.canvas.width / 2 - 100,
             this.sys.game.canvas.height / 2 - 75,
-            this.questionList[this.currentQuestionIndex].qInfo,
+            this.questionList[this.currentQuestionIndex].text,
             {
                 fontFamily: 'Courier New', color: '#ffffff', wordWrap: {
                     width: 500
