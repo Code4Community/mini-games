@@ -142,8 +142,12 @@ var MyScene = new Phaser.Class({
         console.log(userAnswer);
         console.log("Correct Answer:");
         console.log(this.questionList[this.currentQuestionIndex].answer);
+        let userAnswerBoolean = true;
 
-        returnVal = this.questionList[this.currentQuestionIndex].answer === userAnswer;
+        if((userAnswer.toUpperCase())===("FALSE")){
+            userAnswerBoolean = false
+        }
+        returnVal = this.questionList[this.currentQuestionIndex].answer === userAnswerBoolean;
         console.log("Did the user get the right answer?")
         console.log(returnVal);
         return returnVal;
