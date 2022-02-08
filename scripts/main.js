@@ -99,7 +99,7 @@ var MyScene = new Phaser.Class({
             qAnswer: true,
         },
         {
-            qInfo: "if(Olafs favorite season == summer)",
+            qInfo: "if(Olafs favorite \nseason == summer)",
             qAnswer: true,
         },
         {
@@ -111,24 +111,28 @@ var MyScene = new Phaser.Class({
             qAnswer: false, //he is a reindeer
         },
         {
-            qInfo: "if(Kristoff sings Let It Go)",
+            qInfo: "if(Kristoff sings\nLet It Go)",
             qAnswer: false, //elsa does
         },
         {
-            qInfo: "if(Elsa has blonde hair && Ana has red hair)",
+            qInfo: "if(Elsa has blonde hair &&\nAna has red hair)",
             qAnswer: true, 
         },
         {
-            qInfo: "if(Elsa is 18 years old && Ana is 21 years old)",
+            qInfo: "if(Elsa is 18 years old && \n Ana is 21 years old)",
             qAnswer: false, //elsa-21, ana-18
         },
         {
-            qInfo: "if(Olaf has a nose && Olaf doesnt have eyebrows)",
+            qInfo: "if(Olaf has a nose && Olaf \ndoesnt have eyebrows)",
             qAnswer: false, //second part false
         },
         {
-            qInfo: "if(There are 6 spirits && Elsa is the fifth spirit)",
+            qInfo: "if(There are 6 spirits && \n Elsa is the fifth spirit)",
             qAnswer: false, //first part false
+        },
+        {
+            qInfo: "8+8",
+            qAnswer: 16, 
         },
         //add or questions, two true, first one true, second one true, both false
     ],
@@ -164,12 +168,20 @@ var MyScene = new Phaser.Class({
         console.log(userAnswer);
         console.log("Correct Answer:");
         console.log(this.questionList[this.currentQuestionIndex].qAnswer);
-let userAnswerBoolean = true;
+let question = this.questionList[this.currentQuestionIndex].qAnswer;
+        if(typeof question==="boolean"){
+        let userAnswerBoolean = true;
 
         if((userAnswer.toUpperCase())===("FALSE")){
             userAnswerBoolean = false
         }
         returnVal = this.questionList[this.currentQuestionIndex].qAnswer === userAnswerBoolean;
+    }
+
+    if(typeof question==="number"){
+
+    returnVal = this.questionList[this.currentQuestionIndex].qAnswer === parseInt(userAnswer);
+}
         console.log("Did the user get the right answer?")
         console.log(returnVal);
         return returnVal;
