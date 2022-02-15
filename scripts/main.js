@@ -124,7 +124,7 @@ var MyScene = new Phaser.Class({
         //r1 is undefined
 
 
-
+        // Randomizer for questions
         this.currentQuestionIndex = Math.floor(Math.random() * this.questionList.length);
 
         var text = this.add.text(
@@ -134,10 +134,10 @@ var MyScene = new Phaser.Class({
             this.questionList[this.currentQuestionIndex].text,
             {
                 fontFamily: 'Courier New', color: '#ffffff', wordWrap: {
-                    width: 500
-                }
+                    width: 200, useAdvancedWrap: true
+                } 
             }
-        ).setOrigin(0);
+        );
     },
 
     // TODO: Parse an answer from this method
