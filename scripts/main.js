@@ -50,14 +50,11 @@ var MyScene = new Phaser.Class({
                 target[count].angle = Math.floor(Math.random() * 90);
                 target[count].setInteractive();
                 target[count].visible = true;
+                target[count].on('pointerdown', this.onObjectClicked(target[count]))
                 count++;
 
             }
         }
-
-        //this will listen for a down event
-        //on every object that is set interactive
-        this.input.on('gameobjectdown', this.onObjectClicked);
 
         this.scoreText = this.add.text(gameWidth - 150, -175, 'score:' + this.score, { margin: "100px", fontSize: '24pt' });
 
@@ -166,10 +163,12 @@ var MyScene = new Phaser.Class({
     },
 
     onObjectClicked: function (object) {
-        // Rotate the object
-        object.angle += 10;
-        // Pop up the question
-        this.scene.showQuestion();
+        return function() {
+            // Disable the stars
+            object.setActive(false).setVisible(false);
+            // Pop up the question
+            this.scene.showQuestion();
+        };
     }
 });
 
