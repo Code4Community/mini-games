@@ -77,12 +77,14 @@ var MyScene = new Phaser.Class({
             var trueFalse = this.checkAnswer(name.value);
             if (trueFalse == true) {
                 this.correctText.setText("Correct!");
+                this.currentQuestionIndex = null;           
             
             }
             else {
                 this.correctText.setText("Wrong!");
             }
             this.incrementScore(trueFalse);
+
         });
     },
 
@@ -115,7 +117,7 @@ var MyScene = new Phaser.Class({
     ],
 
     score: 0,
-    currentQuestionIndex: 0,
+    currentQuestionIndex: null,
     scoreText: null,
     correctText: null,
 
@@ -160,7 +162,7 @@ var MyScene = new Phaser.Class({
         let correctAnswer = this.questionList[this.currentQuestionIndex].answer;
         if (typeof correctAnswer === "boolean") {
             let userAnswerBoolean = true;
-            ython3 -m http.server
+           
             if ((userAnswer.toUpperCase()) === ("FALSE")) {
                 userAnswerBoolean = false;
             }
