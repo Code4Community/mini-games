@@ -86,6 +86,8 @@ var MyScene = new Phaser.Class({
             y = game.input.mousePointer.y
             console.log(x, y);
         }
+
+        //timedEvent = this.time.addEvent({ delay: 1000, callback: onEvent, callbackScope: this, loop: true });
     },
 
     // TODO: Create a question answer type (int/boolean)
@@ -111,16 +113,13 @@ var MyScene = new Phaser.Class({
         if (answerResult === true){
             this.score+=1;
             this.scoreText.setText("Score: " + this.score);
-            
-
         }
-    console.log(this.score)
+        console.log(this.score)
     },
+
     showQuestion: function () {
         var r1 = this.add.rectangle(this.sys.game.canvas.width / 2, this.sys.game.canvas.height / 2, 300, 200, 0x3c3c3f);
         //r1 is undefined
-
-
 
         this.currentQuestionIndex = Math.floor(Math.random() * this.questionList.length);
 
