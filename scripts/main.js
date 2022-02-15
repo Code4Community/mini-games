@@ -59,7 +59,7 @@ var MyScene = new Phaser.Class({
         //on every object that is set interactive
         this.input.on('gameobjectdown', this.onObjectClicked);
 
-        this.scoreText = this.add.text(gameWidth - 150, -175, 'score:' + this.score, { margin: "100px", fontSize: '24pt' });
+        this.scoreText = this.add.text(gameWidth - 150, -10, 'score:' + this.score, { margin: "100px", fontSize: '24pt' });
 
         //this.add.image(400, 300, 'bg');
 
@@ -67,6 +67,7 @@ var MyScene = new Phaser.Class({
         this.nameInput = this.add.dom(this.sys.game.canvas.width / 2, this.sys.game.canvas.height - 75).createFromCache("form");
 
         this.message = this.add.text(640, 250, "Hello, --", { fontSize: '24pt' }).setOrigin(0.5);
+        this.correctText = this.add.text(240, 150, "", { fontSize: '24pt' }).setOrigin(0.5);
 
         this.returnKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
 
@@ -74,6 +75,13 @@ var MyScene = new Phaser.Class({
             let name = this.nameInput.getChildByName("name");
             this.message.setText("Hello, " + name.value);
             var trueFalse = this.checkAnswer(name.value);
+            if (trueFalse == true) {
+                this.correctText.setText("Correct!");
+            
+            }
+            else {
+                this.correctText.setText("Wrong!");
+            }
             this.incrementScore(trueFalse);
         });
     },
@@ -110,6 +118,7 @@ var MyScene = new Phaser.Class({
     score: 0,
     currentQuestionIndex: 0,
     scoreText: null,
+    correctText: null,
 
     incrementScore: function (answerResult) {
         if (answerResult === true){
@@ -149,7 +158,7 @@ var MyScene = new Phaser.Class({
         console.log(this.questionList[this.currentQuestionIndex].qAnswer);
 
         returnVal = this.questionList[this.currentQuestionIndex].qAnswer === userAnswer;
-        console.log(returnVal);
+        //console.log(returnVal);
         return returnVal;
     },
 
