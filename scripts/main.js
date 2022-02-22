@@ -49,7 +49,7 @@ var MyScene = new Phaser.Class({
                 target[count] = this.add.image(i, j, "star");
                 target[count].angle = Math.floor(Math.random() * 90);
                 target[count].setInteractive();
-                target[count].visible = true;
+                target[count].visible = false;
                 target[count].on('pointerdown', this.onObjectClicked(target[count]))
                 count++;
 
@@ -85,6 +85,7 @@ var MyScene = new Phaser.Class({
             x = game.input.mousePointer.x;
             y = game.input.mousePointer.y
             console.log(x, y);
+            //call the star function
         }
 
         //timedEvent = this.time.addEvent({ delay: 1000, callback: onEvent, callbackScope: this, loop: true });
