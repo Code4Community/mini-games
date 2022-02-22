@@ -30,7 +30,7 @@ var MyScene = new Phaser.Class({
         this.load.image('bg', '../assets/space.jpeg');
 
     },
-
+    target: [],
     /**
      * Create function required by Phaser
      * draws everything we want on the screen
@@ -42,16 +42,16 @@ var MyScene = new Phaser.Class({
         gameHeight = this.sys.game.canvas.height;
 
         let count = 0;
-        let target = [];
-
+    
         for (let i = 20; i < gameWidth; i += 50) {
             for (let j = 50; j < gameHeight; j += 50) {
-                target[count] = this.add.image(i, j, "star");
-                target[count].angle = Math.floor(Math.random() * 90);
-                target[count].setInteractive();
-                target[count].visible = false;
-                target[count].on('pointerdown', this.onObjectClicked(target[count]))
+                this.target[count] = this.add.image(i, j, "star");
+                this.target[count].angle = Math.floor(Math.random() * 90);
+                this.target[count].setInteractive();
+                this.target[count].visible = false;
+                this.target[count].on('pointerdown', this.onObjectClicked(this.target[count]))
                 count++;
+                this.target[count].score =0;
 
             }
         }
@@ -99,9 +99,20 @@ var MyScene = new Phaser.Class({
             x = game.input.mousePointer.x;
             y = game.input.mousePointer.y
             console.log(x, y);
-            //call the star function
+            
         }
-
+        starToTurnOn = Math.floor(Math.random() * this.target.length);
+        
+        twinkle(this.target[starToTurnOn]);//call the star function
+        for(let i=0;i<this.target.length;i++){
+            if(this.target[i].isVisible){
+                //increase its time by some amount
+            }
+            if(this.target[i].time> 3 seconds){
+                this.target[i].setActive(false).setVisible(false);
+            }
+        }
+        //check all stars, if they have been on for more than 3 seconds turn them off
         //timedEvent = this.time.addEvent({ delay: 1000, callback: onEvent, callbackScope: this, loop: true });
     },
 
@@ -186,7 +197,8 @@ var MyScene = new Phaser.Class({
             // Pop up the question
             this.scene.showQuestion();
         };
-    }
+    },
+
 });
 
 // Phaser configuration object
@@ -212,6 +224,16 @@ function Question (text, answer) {
     this.text = text;
     this.answer = answer;
 }
+
+function twinkle(object){
+   
+  
+
+        object.setActive(true).setVisible(true);
+        
+    
+}
+
 
 // Make the basic game with the config file
 var game = new Phaser.Game(config);
