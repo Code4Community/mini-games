@@ -77,7 +77,10 @@ var MyScene = new Phaser.Class({
             var trueFalse = this.checkAnswer(name.value);
             if (trueFalse == true) {
                 this.correctText.setText("Correct!");
-                this.currentQuestionIndex = null;           
+                this.currentQuestionIndex = null; 
+                this.text.destroy();
+                this.r1.destroy();
+                console.log("hi");          
             
             }
             else {
@@ -115,11 +118,13 @@ var MyScene = new Phaser.Class({
         new Question("if(There are 6 spirits && Elsa is the fifth spirit)", false), // First part false
         //add or questions, two true, first one true, second one true, both false
     ],
-
+//global variables
     score: 0,
     currentQuestionIndex: null,
     scoreText: null,
     correctText: null,
+    text: null,
+    r1: null,
 
     incrementScore: function (answerResult) {
         if (answerResult === true){
@@ -131,14 +136,14 @@ var MyScene = new Phaser.Class({
     console.log(this.score)
     },
     showQuestion: function () {
-        var r1 = this.add.rectangle(this.sys.game.canvas.width / 2, this.sys.game.canvas.height / 2, 300, 200, 0x3c3c3f);
+        this.r1 = this.add.rectangle(this.sys.game.canvas.width / 2, this.sys.game.canvas.height / 2, 300, 200, 0x3c3c3f);
         //r1 is undefined
 
 
         // Randomizer for questions
         this.currentQuestionIndex = Math.floor(Math.random() * this.questionList.length);
 
-        var text = this.add.text(
+        this.text = this.add.text(
             
             this.sys.game.canvas.width / 2 - 100,
             this.sys.game.canvas.height / 2 - 75,
