@@ -67,6 +67,7 @@ var MyScene = new Phaser.Class({
         this.nameInput = this.add.dom(this.sys.game.canvas.width / 2, this.sys.game.canvas.height - 75).createFromCache("form");
 
         this.message = this.add.text(640, 250, "Hello, --", { fontSize: '24pt' }).setOrigin(0.5);
+        this.correctText = this.add.text(240, 150, "", { fontSize: '24pt' }).setOrigin(0.5);
 
         this.returnKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
 
@@ -74,7 +75,16 @@ var MyScene = new Phaser.Class({
             let name = this.nameInput.getChildByName("name");
             this.message.setText("Hello, " + name.value);
             var trueFalse = this.checkAnswer(name.value);
+            if (trueFalse == true) {
+                this.correctText.setText("Correct!");
+                this.currentQuestionIndex = null;           
+            
+            }
+            else {
+                this.correctText.setText("Wrong!");
+            }
             this.incrementScore(trueFalse);
+
         });
     },
 
@@ -107,8 +117,9 @@ var MyScene = new Phaser.Class({
     ],
 
     score: 0,
-    currentQuestionIndex: 0,
+    currentQuestionIndex: null,
     scoreText: null,
+    correctText: null,
 
     incrementScore: function (answerResult) {
         if (answerResult === true){
@@ -151,7 +162,7 @@ var MyScene = new Phaser.Class({
         let correctAnswer = this.questionList[this.currentQuestionIndex].answer;
         if (typeof correctAnswer === "boolean") {
             let userAnswerBoolean = true;
-
+           
             if ((userAnswer.toUpperCase()) === ("FALSE")) {
                 userAnswerBoolean = false;
             }
