@@ -50,8 +50,9 @@ var MyScene = new Phaser.Class({
                 this.target[count].setInteractive();
                 this.target[count].visible = false;
                 this.target[count].on('pointerdown', this.onObjectClicked(this.target[count]))
+                this.target[count].time = 0;
                 count++;
-                this.target[count].score =0;
+                
 
             }
         }
@@ -105,10 +106,10 @@ var MyScene = new Phaser.Class({
         
         twinkle(this.target[starToTurnOn]);//call the star function
         for(let i=0;i<this.target.length;i++){
-            if(this.target[i].isVisible){
-                //increase its time by some amount
+            if(this.target[i].visible === true){
+               this.target[i].time+=1;
             }
-            if(this.target[i].time> 3 seconds){
+            if(this.target[i].time> 100 ){
                 this.target[i].setActive(false).setVisible(false);
             }
         }
