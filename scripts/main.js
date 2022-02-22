@@ -111,6 +111,7 @@ var MyScene = new Phaser.Class({
             }
             if(this.target[i].time> 100 ){
                 this.target[i].setActive(false).setVisible(false);
+                this.target[i].time=0;
             }
         }
         //check all stars, if they have been on for more than 3 seconds turn them off
