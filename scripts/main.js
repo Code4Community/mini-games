@@ -67,6 +67,10 @@ var MyScene = new Phaser.Class({
         this.nameInput = this.add.dom(this.sys.game.canvas.width / 2, this.sys.game.canvas.height - 75).createFromCache("form");
 
         this.message = this.add.text(640, 250, "Hello, --", { fontSize: '24pt' }).setOrigin(0.5);
+        this.message.destroy();
+        //makes then destroys message 
+
+
         this.correctText = this.add.text(240, 150, "", { fontSize: '24pt' }).setOrigin(0.5);
 
         this.returnKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
@@ -79,8 +83,7 @@ var MyScene = new Phaser.Class({
                 this.correctText.setText("Correct!");
                 this.currentQuestionIndex = null; 
                 this.text.destroy();
-                this.r1.destroy();
-                console.log("hi");          
+                this.r1.destroy();         
             
             }
             else {
