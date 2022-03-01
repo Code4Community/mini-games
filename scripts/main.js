@@ -79,8 +79,7 @@ var MyScene = new Phaser.Class({
                 this.correctText.setText("Correct!");
                 this.currentQuestionIndex = null; 
                 this.text.destroy();
-                this.r1.destroy();
-                console.log("hi");          
+                this.r1.destroy();      
             
             }
             else {
