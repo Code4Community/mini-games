@@ -3,22 +3,6 @@ var MyScene = new Phaser.Class({
 
     Extends: Phaser.Scene,
 
-    initialize:
-
-        function MyScene() {
-            //  Here we'll tailor the property injection map so that by default our Scene
-            //  only gets 2 properties defined on it: 'makeStuff' and 'loader'.
-            //  It will also have the property 'sys' which can never be redefined or removed.
-            var config = {
-                map: {
-                    add: 'add',
-                    load: 'load',
-                    input: 'input'
-                }
-            };
-
-            Phaser.Scene.call(this, config)
-        },
 
     /**
      * Preload function required by Phaser
@@ -201,7 +185,7 @@ var MyScene = new Phaser.Class({
 });
 
 // Phaser configuration object
-let config = {
+let gameConfig = {
     type: Phaser.AUTO,
     parent: "game",
     width: 1280,
@@ -224,5 +208,5 @@ function Question (text, answer) {
     this.answer = answer;
 }
 
-// Make the basic game with the config file
-var game = new Phaser.Game(config);
+// Make the basic game with the gameConfig file
+var game = new Phaser.Game(gameConfig);
