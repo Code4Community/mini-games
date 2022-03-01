@@ -30,7 +30,7 @@ var MyScene = new Phaser.Class({
         this.load.image('bg', '../assets/space.jpeg');
 
     },
-    target: [],
+    targets: [],
     /**
      * Create function required by Phaser
      * draws everything we want on the screen
@@ -45,12 +45,12 @@ var MyScene = new Phaser.Class({
     
         for (let i = 20; i < gameWidth; i += 50) {
             for (let j = 50; j < gameHeight; j += 50) {
-                this.target[count] = this.add.image(i, j, "star");
-                this.target[count].angle = Math.floor(Math.random() * 90);
-                this.target[count].setInteractive();
-                this.target[count].visible = false;
-                this.target[count].on('pointerdown', this.onObjectClicked(this.target[count]))
-                this.target[count].time = 0;
+                this.targets[count] = this.add.image(i, j, "star");
+                this.targets[count].angle = Math.floor(Math.random() * 90);
+                this.targets[count].setInteractive();
+                this.targets[count].visible = false;
+                this.targets[count].on('pointerdown', this.onObjectClicked(this.targets[count]))
+                this.targets[count].time = 0;
                 count++;
                 
 
@@ -102,16 +102,16 @@ var MyScene = new Phaser.Class({
             console.log(x, y);
             
         }
-        starToTurnOn = Math.floor(Math.random() * this.target.length);
+        starToTurnOn = Math.floor(Math.random() * this.targets.length);
         
-        twinkle(this.target[starToTurnOn]);//call the star function
-        for(let i=0;i<this.target.length;i++){
-            if(this.target[i].visible === true){
-               this.target[i].time+=1;
+        twinkle(this.targets[starToTurnOn]);//call the star function
+        for(let i=0;i<this.targets.length;i++){
+            if(this.targets[i].visible === true){
+               this.targets[i].time+=1;
             }
-            if(this.target[i].time> 100 ){
-                this.target[i].setActive(false).setVisible(false);
-                this.target[i].time=0;
+            if(this.targets[i].time> 100 ){
+                this.targets[i].setActive(false).setVisible(false);
+                this.targets[i].time=0;
             }
         }
         //check all stars, if they have been on for more than 3 seconds turn them off
