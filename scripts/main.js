@@ -44,6 +44,22 @@ var MyScene = new Phaser.Class({
         let count = 0;
         let target = [];
 
+        // borders = this.physics.add.staticGroup();
+        //creates stars
+        stars = this.physics.add.group({
+            key: 'star',
+            repeat: 11,
+            setXY: { x: 12, y: 0, stepX: 70 }
+        });
+
+        stars.setCollideWorldBounds(true);
+
+        stars.children.iterate(function (child) {
+
+            child.setBounceY(Phaser.Math.FloatBetween(0.4, 0.8));
+        
+        });
+
         for (let i = 20; i < gameWidth; i += 50) {
             for (let j = 50; j < gameHeight; j += 50) {
                 target[count] = this.add.image(i, j, "star");
