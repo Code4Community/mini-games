@@ -1,4 +1,5 @@
 // https://labs.phaser.io/edit.html?src=src/scenes/scene%20injection%20map.js&v=3.55.2
+const MAX_DEGREES_TO_ROTATE_STAR =90;
 var MyScene = new Phaser.Class({
 
     Extends: Phaser.Scene,
@@ -46,14 +47,12 @@ var MyScene = new Phaser.Class({
         for (let i = 20; i < gameWidth; i += 50) {
             for (let j = 50; j < gameHeight; j += 50) {
                 this.targets[count] = this.add.image(i, j, "star");
-                this.targets[count].angle = Math.floor(Math.random() * 90);
+                this.targets[count].angle = Math.floor(Math.random() * MAX_DEGREES_TO_ROTATE_STAR);
                 this.targets[count].setInteractive();
                 this.targets[count].visible = false;
                 this.targets[count].on('pointerdown', this.onObjectClicked(this.targets[count]))
                 this.targets[count].time = 0;
                 count++;
-                
-
             }
         }
 
@@ -102,16 +101,18 @@ var MyScene = new Phaser.Class({
             console.log(x, y);
             
         }
-        starToTurnOn = Math.floor(Math.random() * this.targets.length);
+
+        starToTurnOnIndex = Math.floor(Math.random() * this.targets.length);
         
-        twinkle(this.targets[starToTurnOn]);//call the star function
-        for(let i=0;i<this.targets.length;i++){
+        twinkle(this.targets[starToTurnOnIndex]);//call the star function
+
+        for(let i = 0; i < this.targets.length; i++) {
             if(this.targets[i].visible === true){
-               this.targets[i].time+=1;
+               this.targets[i].time += 1;
             }
-            if(this.targets[i].time> 100 ){
+            if(this.targets[i].time > 100 ){
                 this.targets[i].setActive(false).setVisible(false);
-                this.targets[i].time=0;
+                this.targets[i].time = 0;
             }
         }
         //check all stars, if they have been on for more than 3 seconds turn them off
@@ -228,14 +229,8 @@ function Question (text, answer) {
 }
 
 function twinkle(object){
-   
-  
-
-        object.setActive(true).setVisible(true);
-        
-    
+        object.setActive(true).setVisible(true);  
 }
-
 
 // Make the basic game with the config file
 var game = new Phaser.Game(config);
