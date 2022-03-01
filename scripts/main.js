@@ -72,21 +72,29 @@ var MyScene = new Phaser.Class({
         this.returnKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
 
         this.returnKey.on("down", event => {
+            //while (this.openQuestionStack.length > 0) {
             let name = this.nameInput.getChildByName("name");
             this.message.setText("Hello, " + name.value);
             var trueFalse = this.checkAnswer(name.value);
             if (trueFalse == true) {
                 this.correctText.setText("Correct!");
-                this.currentQuestionIndex = null; 
-                this.text.destroy();
-                this.r1.destroy();
-                console.log("hi");          
+                //this.openQuestionStack[this.openQuestionStack.length - 1] = null; 
+
+                
+                    this.openQuestionStack.pop();
+                    this.text.destroy();
+                    this.r1.destroy();
+                
+
+    
+                console.log(this.openQuestionStack);         
             
             }
             else {
                 this.correctText.setText("Wrong!");
             }
             this.incrementScore(trueFalse);
+         //}
 
         });
     },
@@ -120,11 +128,11 @@ var MyScene = new Phaser.Class({
     ],
 //global variables
     score: 0,
-    currentQuestionIndex: null,
     scoreText: null,
     correctText: null,
     text: null,
     r1: null,
+    openQuestionStack: [],
 
     incrementScore: function (answerResult) {
         if (answerResult === true){
@@ -141,18 +149,20 @@ var MyScene = new Phaser.Class({
 
 
         // Randomizer for questions
-        this.currentQuestionIndex = Math.floor(Math.random() * this.questionList.length);
+        this.openQuestionStack.push(Math.floor(Math.random() * this.questionList.length));
+        console.log(this.openQuestionStack)
 
         this.text = this.add.text(
             
             this.sys.game.canvas.width / 2 - 100,
             this.sys.game.canvas.height / 2 - 75,
-            this.questionList[this.currentQuestionIndex].text,
+            this.questionList[this.openQuestionStack[this.openQuestionStack.length - 1]].text,
             {
                 fontFamily: 'Courier New', color: '#ffffff', wordWrap: {
                     width: 200, useAdvancedWrap: true
                 } 
             }
+            
         );
     },
 
@@ -162,19 +172,19 @@ var MyScene = new Phaser.Class({
         console.log("Input text:");
         console.log(userAnswer);
         console.log("Correct Answer:");
-        console.log(this.questionList[this.currentQuestionIndex].answer);
+        console.log(this.questionList[this.openQuestionStack[this.openQuestionStack.length - 1]].answer);
 
-        let correctAnswer = this.questionList[this.currentQuestionIndex].answer;
+        let correctAnswer = this.questionList[this.openQuestionStack[this.openQuestionStack.length - 1]].answer;
         if (typeof correctAnswer === "boolean") {
             let userAnswerBoolean = true;
            
             if ((userAnswer.toUpperCase()) === ("FALSE")) {
                 userAnswerBoolean = false;
             }
-            returnVal = this.questionList[this.currentQuestionIndex].answer === userAnswerBoolean;
+            returnVal = this.questionList[this.openQuestionStack[this.openQuestionStack.length - 1]].answer === userAnswerBoolean;
         }
         else if (typeof correctAnswer === "number") {
-            returnVal = this.questionList[this.currentQuestionIndex].answer === parseInt(userAnswer);
+            returnVal = this.questionList[this.openQuestionStack[this.openQuestionStack.length - 1]].answer === parseInt(userAnswer);
         }
         console.log("Did the user get the right answer?")
         console.log(returnVal);
