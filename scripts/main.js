@@ -27,11 +27,13 @@ var MyScene = new Phaser.Class({
      */
     preload: function () {
         this.load.image('star', '../assets/star.png');
+        this.load.image('falseButton', '../assets/falseButton.png');
+        this.load.image('trueButton', '../assets/trueButton.png');
         this.load.html("form", "../templates/form.html");
         this.load.image('bg', '../assets/space.jpeg');
 
     },
-    targets: [],
+    
     /**
      * Create function required by Phaser
      * draws everything we want on the screen
@@ -56,6 +58,17 @@ var MyScene = new Phaser.Class({
             }
         }
 
+        this.falseButton = this.add.image(gameWidth/2+100,gameHeight-100,"falseButton");
+        this.falseButton.setInteractive();
+        this.falseButton.visible = false;
+
+        this.trueButton = this.add.image(gameWidth/2-100,gameHeight-100,"trueButton");
+        this.trueButton.setInteractive();
+        this.trueButton.visible = false;
+
+        this.falseButton.on('pointerdown', this.onButtonClicked(this.falseButton))
+        this.trueButton.on('pointerdown', this.onButtonClicked(this.trueButton))
+
         //this will listen for a down event
         //on every object that is set interactive
         this.input.on('gameobjectdown', this.onObjectClicked);
@@ -74,25 +87,47 @@ var MyScene = new Phaser.Class({
         this.returnKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
 
         this.returnKey.on("down", event => {
-            let name = this.nameInput.getChildByName("name");
-            this.message.setText("Hello, " + name.value);
-            var trueFalse = this.checkAnswer(name.value);
-            if (trueFalse == true) {
-                this.correctText.setText("Correct!");
-                this.nameInput.visible = false; //remove the text input box
-                this.currentQuestionIndex = null; 
-                this.text.destroy();
-                this.r1.destroy();
-                console.log("hi");          
-            
+            this.userAnswer = this.nameInput.getChildByName("name").value;
+            let userAnsweredCorrectly = this.checkAnswer(this.userAnswer);
+            if (userAnsweredCorrectly === true) {  
+                this.handleCorrectAnswer();         
             }
             else {
                 this.correctText.setText("Wrong!");
             }
-            name.value=""; //reset text inside text input box
-            this.incrementScore(trueFalse);
-
+            userTypedAnswer.value=""; //reset text inside text input box
+            this.incrementScore(userAnsweredCorrectly);
         });
+
+        // this.falseButton.on("click", event => {
+        //     if (this.checkAnswer(false)) {  
+        //         this.handleCorrectAnswer();         
+        //     }
+        //     else {
+        //         this.correctText.setText("Wrong!");
+        //     }
+        //     this.incrementScore(userAnsweredCorrectly);
+        // });
+
+        // this.trueButton.on("click", event => {
+        //     console.log("clicked");
+        //     if (this.checkAnswer(true)) {  
+        //         this.handleCorrectAnswer();         
+        //     }
+        //     else {
+        //         this.correctText.setText("Wrong!");
+        //     }
+        //     this.incrementScore(userAnsweredCorrectly);
+        // });
+
+
+       
+
+
+        
+
+        
+
     },
 
     /**
@@ -146,6 +181,10 @@ var MyScene = new Phaser.Class({
     correctText: null,
     text: null,
     r1: null,
+    targets: [], 
+    falseButton: null, 
+    trueButton: null,
+    userAnswer: null,
 
     incrementScore: function (answerResult) {
         if (answerResult === true){
@@ -159,7 +198,6 @@ var MyScene = new Phaser.Class({
         this.r1 = this.add.rectangle(this.sys.game.canvas.width / 2, this.sys.game.canvas.height / 2, 300, 200, 0x3c3c3f);
         //r1 is undefined
 
-        this.nameInput.visible = true; //show text input box
 
         // Randomizer for questions
         this.currentQuestionIndex = Math.floor(Math.random() * this.questionList.length);
@@ -175,12 +213,21 @@ var MyScene = new Phaser.Class({
                 } 
             }
         );
+
+        //if it is a boolean answer buttons appear
+        if( typeof this.questionList[this.currentQuestionIndex].answer == "boolean"){
+            this.trueButton.visible = true;
+            this.falseButton.visible = true;
+        }
+        else{
+        this.nameInput.visible = true; // otherwise show text input box
+        }
     },
 
     // TODO: Parse an answer from this method
     checkAnswer: function(userAnswer)
     {
-        console.log("Input text:");
+        console.log("Users Answer:");
         console.log(userAnswer);
         console.log("Correct Answer:");
         console.log(this.questionList[this.currentQuestionIndex].answer);
@@ -189,10 +236,14 @@ var MyScene = new Phaser.Class({
         if (typeof correctAnswer === "boolean") {
             let userAnswerBoolean = true;
            
-            if ((userAnswer.toUpperCase()) === ("FALSE")) {
-                userAnswerBoolean = false;
-            }
-            returnVal = this.questionList[this.currentQuestionIndex].answer === userAnswerBoolean;
+             if ((this.userAnswer) === ("false")) {
+                 userAnswerBoolean = false;
+             }
+            //returnVal = this.questionList[this.currentQuestionIndex].answer === userAnswerBoolean;
+            console.log(typeof this.questionList[this.currentQuestionIndex].answer);
+            console.log(typeof this.userAnswer);
+                        returnVal = this.questionList[this.currentQuestionIndex].answer === userAnswerBoolean;
+
         }
         else if (typeof correctAnswer === "number") {
             returnVal = this.questionList[this.currentQuestionIndex].answer === parseInt(userAnswer);
@@ -202,12 +253,48 @@ var MyScene = new Phaser.Class({
         return returnVal;
     },
 
+    handleCorrectAnswer: function(){
+        this.correctText.setText("Correct!");
+        this.nameInput.visible = false; //remove the text input box
+        this.falseButton.visible = false;
+        this.trueButton.visible = false;
+        this.currentQuestionIndex = null; 
+        this.text.destroy();
+        this.r1.destroy();   
+    },
+
     onObjectClicked: function (object) {
         return function() {
             // Disable the stars
             object.setActive(false).setVisible(false);
             // Pop up the question
             this.scene.showQuestion();
+        };
+    },
+
+    onButtonClicked: function (object) {
+        return function() {
+            // set user answer to false
+            if(object == this.falseButton) {
+                this.userAnswer = false;
+                if (this.scene.checkAnswer(false)) {  
+                    this.scene.handleCorrectAnswer();         
+                }
+                else {
+                    this.scene.correctText.setText("Wrong!");
+                }
+                this.scene.incrementScore(this.scene.checkAnswer(false));
+            }
+            else {
+                this.userAnswer = true;
+                if (this.scene.checkAnswer(true)) {  
+                    this.scene.handleCorrectAnswer();         
+                }
+                else {
+                    this.scene.correctText.setText("Wrong!");
+                }
+                this.scene.incrementScore(this.scene.checkAnswer(true));
+            }
         };
     },
 
