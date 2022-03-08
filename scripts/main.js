@@ -58,15 +58,11 @@ var MyScene = new Phaser.Class({
         //this will listen for a down event
         //on every object that is set interactive
 
-            console.log("WHY");
-            this.input.on('gameobjectdown', this.onObjectClicked);
+        this.input.on('gameobjectdown', this.onObjectClicked);
             
-        
-
         this.scoreText = this.add.text(gameWidth - 200, this.sys.game.canvas.height - 600, 'score:' + this.score, { margin: "100px", fontSize: '24pt' });
 
         //this.add.image(400, 300, 'bg');
-
 
         this.nameInput = this.add.dom(this.sys.game.canvas.width / 2, this.sys.game.canvas.height - 75).createFromCache("form");
 
@@ -83,9 +79,8 @@ var MyScene = new Phaser.Class({
                 this.correctText.setText("Correct!");
                 this.currentQuestionIndex = null; 
                 this.text.destroy();
-                this.r1.destroy();
-                console.log("hi");   
-                isClicked = false;       
+                this.r1.destroy();  
+                this.isShowingQuestion = false;     
             
             }
             else {
@@ -105,7 +100,7 @@ var MyScene = new Phaser.Class({
         if (game.input.mousePointer.isDown) {
             x = game.input.mousePointer.x;
             y = game.input.mousePointer.y
-            console.log(x, y);
+            //console.log(x, y);
         }
     },
 
@@ -130,7 +125,7 @@ var MyScene = new Phaser.Class({
     correctText: null,
     text: null,
     r1: null,
-    isClicked: false,
+    isShowingQuestion: false,
 
     incrementScore: function (answerResult) {
         if (answerResult === true){
@@ -139,36 +134,38 @@ var MyScene = new Phaser.Class({
             
 
         }
-    console.log(this.score)
+    //console.log(this.score)
     },
     showQuestion: function () {
-        this.r1 = this.add.rectangle(this.sys.game.canvas.width / 2, this.sys.game.canvas.height / 2, 300, 200, 0x3c3c3f);
-        //r1 is undefined
+        if (!this.isShowingQuestion) {
 
+            this.r1 = this.add.rectangle(this.sys.game.canvas.width / 2, this.sys.game.canvas.height / 2, 300, 200, 0x3c3c3f);
+            //r1 is undefined
+            // Randomizer for questions
+            this.currentQuestionIndex = Math.floor(Math.random() * this.questionList.length);
 
-        // Randomizer for questions
-        this.currentQuestionIndex = Math.floor(Math.random() * this.questionList.length);
-
-        this.text = this.add.text(
-            
-            this.sys.game.canvas.width / 2 - 100,
-            this.sys.game.canvas.height / 2 - 75,
-            this.questionList[this.currentQuestionIndex].text,
-            {
-                fontFamily: 'Courier New', color: '#ffffff', wordWrap: {
-                    width: 200, useAdvancedWrap: true
-                } 
-            }
-        );
+            this.text = this.add.text(
+                
+                this.sys.game.canvas.width / 2 - 100,
+                this.sys.game.canvas.height / 2 - 75,
+                this.questionList[this.currentQuestionIndex].text,
+                {
+                    fontFamily: 'Courier New', color: '#ffffff', wordWrap: {
+                        width: 200, useAdvancedWrap: true
+                    } 
+                }
+            );
+            this.isShowingQuestion = true;
+        }
     },
 
     // TODO: Parse an answer from this method
     checkAnswer: function(userAnswer)
     {
-        console.log("Input text:");
-        console.log(userAnswer);
-        console.log("Correct Answer:");
-        console.log(this.questionList[this.currentQuestionIndex].answer);
+        //console.log("Input text:");
+        //console.log(userAnswer);
+        //console.log("Correct Answer:");
+        //console.log(this.questionList[this.currentQuestionIndex].answer);
 
         let correctAnswer = this.questionList[this.currentQuestionIndex].answer;
         if (typeof correctAnswer === "boolean") {
@@ -182,20 +179,16 @@ var MyScene = new Phaser.Class({
         else if (typeof correctAnswer === "number") {
             returnVal = this.questionList[this.currentQuestionIndex].answer === parseInt(userAnswer);
         }
-        console.log("Did the user get the right answer?")
-        console.log(returnVal);
+        //console.log("Did the user get the right answer?")
+        //console.log(returnVal);
         return returnVal;
     },
 
     onObjectClicked: function (object) {
         // Rotate the object
-        if (this.isClicked != true) {
         object.angle += 10;
         // Pop up the question
         this.scene.showQuestion();
-        
-        }
-        this.isClicked = true;
     }
 });
 
