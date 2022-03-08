@@ -104,8 +104,6 @@ var MyScene = new Phaser.Class({
         }
     },
 
-    // TODO: Create a question answer type (int/boolean)
-    // TODO: Create a question JS constructor
     questionList: [
         new Question("if(Elsas Sister == Ana)", true),
         new Question("if(Olafs favorite season == summer)", true),
@@ -116,7 +114,14 @@ var MyScene = new Phaser.Class({
         new Question("if(Elsa is 18 years old && Ana is 21 years old)", false), // Elsa: 21, Ana: 18
         new Question("if(Olaf has a nose && Olaf doesnt have eyebrows)", false), // Second part false
         new Question("if(There are 6 spirits && Elsa is the fifth spirit)", false), // First part false
-        //add or questions, two true, first one true, second one true, both false
+
+        // Basic idea of a true or false question
+        new Question("The sky is blue", true),
+        new Question("color(sky) == blue", true),
+        new Question("The Pope is Catholic", true),
+        new Question("The Pope is Protestant", false),
+        new Question("2 equals 2", true),
+        new Question("2 equals 5", false),
     ],
 //global variables
     score: 0,
