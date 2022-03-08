@@ -128,6 +128,9 @@ var MyScene = new Phaser.Class({
     // TODO: Create a question answer type (int/boolean)
     // TODO: Create a question JS constructor
     questionList: [
+        
+/* 
+        //Frozen themed questions
         new Question("if(Elsas Sister == Ana)", true),
         new Question("if(Olafs favorite season == summer)", true),
         new Question("if(Hans loves Ana)", false),
@@ -138,6 +141,17 @@ var MyScene = new Phaser.Class({
         new Question("if(Olaf has a nose && Olaf doesnt have eyebrows)", false), // Second part false
         new Question("if(There are 6 spirits && Elsa is the fifth spirit)", false), // First part false
         //add or questions, two true, first one true, second one true, both false
+        */
+
+
+        //Sports Themed questions
+        new Question("LeBron James has won more NBA Championships than Michael Jordan", false),
+        new Question("Tom Brady retired AND the Cincinnati Bengals won the Super Bowl", false),
+        new Question("CJ Stroud is the starting quarterback for the Buckeyes OR the Cleveland Browns went to the Playoffs", true),
+        new Question("Columbus has a football team in the NFL", false),
+        new Question("Columbus has a hockey team in the NHL", true),
+
+
     ],
 //global variables
     score: 0,
