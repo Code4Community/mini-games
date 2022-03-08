@@ -57,7 +57,11 @@ var MyScene = new Phaser.Class({
 
         //this will listen for a down event
         //on every object that is set interactive
-        this.input.on('gameobjectdown', this.onObjectClicked);
+
+            console.log("WHY");
+            this.input.on('gameobjectdown', this.onObjectClicked);
+            
+        
 
         this.scoreText = this.add.text(gameWidth - 200, this.sys.game.canvas.height - 600, 'score:' + this.score, { margin: "100px", fontSize: '24pt' });
 
@@ -80,7 +84,8 @@ var MyScene = new Phaser.Class({
                 this.currentQuestionIndex = null; 
                 this.text.destroy();
                 this.r1.destroy();
-                console.log("hi");          
+                console.log("hi");   
+                isClicked = false;       
             
             }
             else {
@@ -125,6 +130,7 @@ var MyScene = new Phaser.Class({
     correctText: null,
     text: null,
     r1: null,
+    isClicked: false,
 
     incrementScore: function (answerResult) {
         if (answerResult === true){
@@ -183,9 +189,13 @@ var MyScene = new Phaser.Class({
 
     onObjectClicked: function (object) {
         // Rotate the object
+        if (this.isClicked != true) {
         object.angle += 10;
         // Pop up the question
         this.scene.showQuestion();
+        
+        }
+        this.isClicked = true;
     }
 });
 
