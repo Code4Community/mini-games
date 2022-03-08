@@ -1,4 +1,5 @@
 // https://labs.phaser.io/edit.html?src=src/scenes/scene%20injection%20map.js&v=3.55.2
+const MAX_DEGREES_TO_ROTATE_STAR =90;
 var MyScene = new Phaser.Class({
 
     Extends: Phaser.Scene,
@@ -30,7 +31,7 @@ var MyScene = new Phaser.Class({
         this.load.image('bg', '../assets/space.jpeg');
 
     },
-
+    targets: [],
     /**
      * Create function required by Phaser
      * draws everything we want on the screen
@@ -42,16 +43,16 @@ var MyScene = new Phaser.Class({
         gameHeight = this.sys.game.canvas.height;
 
         let count = 0;
-        let target = [];
-
+    
         for (let i = 20; i < gameWidth; i += 50) {
             for (let j = 50; j < gameHeight; j += 50) {
-                target[count] = this.add.image(i, j, "star");
-                target[count].angle = Math.floor(Math.random() * 90);
-                target[count].setInteractive();
-                target[count].visible = true;
+                this.targets[count] = this.add.image(i, j, "star");
+                this.targets[count].angle = Math.floor(Math.random() * MAX_DEGREES_TO_ROTATE_STAR);
+                this.targets[count].setInteractive();
+                this.targets[count].visible = false;
+                this.targets[count].on('pointerdown', this.onObjectClicked(this.targets[count]))
+                this.targets[count].time = 0;
                 count++;
-
             }
         }
 
@@ -65,6 +66,7 @@ var MyScene = new Phaser.Class({
         //this.add.image(400, 300, 'bg');
 
         this.nameInput = this.add.dom(this.sys.game.canvas.width / 2, this.sys.game.canvas.height - 75).createFromCache("form");
+        this.nameInput.visible = false; //start the game without the text input hidden
 
         this.message = this.add.text(640, 250, "Hello, --", { fontSize: '24pt' }).setOrigin(0.5);
         this.correctText = this.add.text(240, 150, "", { fontSize: '24pt' }).setOrigin(0.5);
@@ -77,6 +79,7 @@ var MyScene = new Phaser.Class({
             var trueFalse = this.checkAnswer(name.value);
             if (trueFalse == true) {
                 this.correctText.setText("Correct!");
+                this.nameInput.visible = false; //remove the text input box
                 this.currentQuestionIndex = null; 
                 this.text.destroy();
                 this.r1.destroy();  
@@ -86,6 +89,7 @@ var MyScene = new Phaser.Class({
             else {
                 this.correctText.setText("Wrong!");
             }
+            name.value=""; //reset text inside text input box
             this.incrementScore(trueFalse);
 
         });
@@ -101,7 +105,24 @@ var MyScene = new Phaser.Class({
             x = game.input.mousePointer.x;
             y = game.input.mousePointer.y
             //console.log(x, y);
+            
         }
+
+        starToTurnOnIndex = Math.floor(Math.random() * this.targets.length);
+        
+        twinkle(this.targets[starToTurnOnIndex]);//call the star function
+
+        for(let i = 0; i < this.targets.length; i++) {
+            if(this.targets[i].visible === true){
+               this.targets[i].time += 1;
+            }
+            if(this.targets[i].time > 100 ){
+                this.targets[i].setActive(false).setVisible(false);
+                this.targets[i].time = 0;
+            }
+        }
+        //check all stars, if they have been on for more than 3 seconds turn them off
+        //timedEvent = this.time.addEvent({ delay: 1000, callback: onEvent, callbackScope: this, loop: true });
     },
 
     // TODO: Create a question answer type (int/boolean)
@@ -131,16 +152,17 @@ var MyScene = new Phaser.Class({
         if (answerResult === true){
             this.score+=1;
             this.scoreText.setText("Score: " + this.score);
-            
-
         }
-    //console.log(this.score)
+        console.log(this.score)
     },
+
     showQuestion: function () {
         if (!this.isShowingQuestion) {
-
             this.r1 = this.add.rectangle(this.sys.game.canvas.width / 2, this.sys.game.canvas.height / 2, 300, 200, 0x3c3c3f);
             //r1 is undefined
+
+            this.nameInput.visible = true; //show text input box
+
             // Randomizer for questions
             this.currentQuestionIndex = Math.floor(Math.random() * this.questionList.length);
 
@@ -185,11 +207,14 @@ var MyScene = new Phaser.Class({
     },
 
     onObjectClicked: function (object) {
-        // Rotate the object
-        object.angle += 10;
-        // Pop up the question
-        this.scene.showQuestion();
-    }
+        return function() {
+            // Disable the stars
+            object.setActive(false).setVisible(false);
+            // Pop up the question
+            this.scene.showQuestion();
+        };
+    },
+
 });
 
 // Phaser configuration object
@@ -214,6 +239,10 @@ let config = {
 function Question (text, answer) {
     this.text = text;
     this.answer = answer;
+}
+
+function twinkle(object){
+        object.setActive(true).setVisible(true);  
 }
 
 // Make the basic game with the config file
