@@ -65,6 +65,7 @@ var MyScene = new Phaser.Class({
 
 
         this.nameInput = this.add.dom(this.sys.game.canvas.width / 2, this.sys.game.canvas.height - 75).createFromCache("form");
+        this.nameInput.visible = false; //start the game without the text input hidden
 
         this.message = this.add.text(640, 250, "Hello, --", { fontSize: '24pt' }).setOrigin(0.5);
         this.correctText = this.add.text(240, 150, "", { fontSize: '24pt' }).setOrigin(0.5);
@@ -77,6 +78,7 @@ var MyScene = new Phaser.Class({
             var trueFalse = this.checkAnswer(name.value);
             if (trueFalse == true) {
                 this.correctText.setText("Correct!");
+                this.nameInput.visible = false; //remove the text input box
                 this.currentQuestionIndex = null; 
                 this.text.destroy();
                 this.r1.destroy();
@@ -86,6 +88,7 @@ var MyScene = new Phaser.Class({
             else {
                 this.correctText.setText("Wrong!");
             }
+            name.value=""; //reset text inside text input box
             this.incrementScore(trueFalse);
 
         });
@@ -139,6 +142,7 @@ var MyScene = new Phaser.Class({
         this.r1 = this.add.rectangle(this.sys.game.canvas.width / 2, this.sys.game.canvas.height / 2, 300, 200, 0x3c3c3f);
         //r1 is undefined
 
+        this.nameInput.visible = true; //show text input box
 
         // Randomizer for questions
         this.currentQuestionIndex = Math.floor(Math.random() * this.questionList.length);
