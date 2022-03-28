@@ -276,6 +276,7 @@ var MyScene = new Phaser.Class({
         return function() {
             // set user answer to false
             if(object == this.falseButton) {
+                console.log('false clicked');
                 this.userAnswer = false;
                 if (this.scene.checkAnswer(false)) {  
                     this.scene.handleCorrectAnswer();         
@@ -285,8 +286,9 @@ var MyScene = new Phaser.Class({
                 }
                 this.scene.incrementScore(this.scene.checkAnswer(false));
             }
-            else {
+            else if(object == this.trueButton){
                 this.userAnswer = true;
+                console.log('true clicked')
                 if (this.scene.checkAnswer(true)) {  
                     this.scene.handleCorrectAnswer();         
                 }
