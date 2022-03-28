@@ -71,12 +71,12 @@ var MyScene = new Phaser.Class({
 
         //this will listen for a down event
         //on every object that is set interactive
-        this.input.on('gameobjectdown', this.onObjectClicked);
 
+        this.input.on('gameobjectdown', this.onObjectClicked);
+            
         this.scoreText = this.add.text(gameWidth - 200, this.sys.game.canvas.height - 600, 'score:' + this.score, { margin: "100px", fontSize: '24pt' });
 
         //this.add.image(400, 300, 'bg');
-
 
         this.nameInput = this.add.dom(this.sys.game.canvas.width / 2, this.sys.game.canvas.height - 75).createFromCache("form");
         this.nameInput.visible = false; //start the game without the text input hidden
@@ -139,7 +139,7 @@ var MyScene = new Phaser.Class({
         if (game.input.mousePointer.isDown) {
             x = game.input.mousePointer.x;
             y = game.input.mousePointer.y
-            console.log(x, y);
+            //console.log(x, y);
             
         }
 
@@ -163,6 +163,9 @@ var MyScene = new Phaser.Class({
     // TODO: Create a question answer type (int/boolean)
     // TODO: Create a question JS constructor
     questionList: [
+        
+
+        //Frozen themed questions
         new Question("if(Elsas Sister == Ana)", true),
         new Question("if(Olafs favorite season == summer)", true),
         new Question("if(Hans loves Ana)", false),
@@ -173,6 +176,25 @@ var MyScene = new Phaser.Class({
         new Question("if(Olaf has a nose && Olaf doesnt have eyebrows)", false), // Second part false
         new Question("if(There are 6 spirits && Elsa is the fifth spirit)", false), // First part false
         //add or questions, two true, first one true, second one true, both false
+        
+
+
+        //Sports Themed questions
+        new Question("LeBron James has won more NBA Championships than Michael Jordan", false),
+        new Question("Tom Brady retired AND the Cincinnati Bengals won the Super Bowl", false),
+        new Question("CJ Stroud is the starting quarterback for the Buckeyes OR the Cleveland Browns went to the Playoffs", true),
+        new Question("Columbus has a football team in the NFL", false),
+        new Question("Columbus has a hockey team in the NHL", true),
+        new Question("IF the Columbus Blue Jackets win the Semi Finals, they go to the Super Bowl", false),
+        new Question("If the Buckeyes score a touchdown, they will gain 6 points", true),
+
+
+
+
+ 
+
+
+
     ],
 //global variables
     score: 0,
@@ -185,6 +207,7 @@ var MyScene = new Phaser.Class({
     falseButton: null, 
     trueButton: null,
     userAnswer: null,
+    isShowingQuestion: false,
 
     incrementScore: function (answerResult) {
         if (answerResult === true){
@@ -195,42 +218,45 @@ var MyScene = new Phaser.Class({
     },
 
     showQuestion: function () {
-        this.r1 = this.add.rectangle(this.sys.game.canvas.width / 2, this.sys.game.canvas.height / 2, 300, 200, 0x3c3c3f);
-        //r1 is undefined
+        if (!this.isShowingQuestion) {
+            this.r1 = this.add.rectangle(this.sys.game.canvas.width / 2, this.sys.game.canvas.height / 2, 300, 200, 0x3c3c3f);
+            //r1 is undefined
 
+            this.nameInput.visible = true; //show text input box
 
-        // Randomizer for questions
-        this.currentQuestionIndex = Math.floor(Math.random() * this.questionList.length);
+            // Randomizer for questions
+            this.currentQuestionIndex = Math.floor(Math.random() * this.questionList.length);
 
-        this.text = this.add.text(
-            
-            this.sys.game.canvas.width / 2 - 100,
-            this.sys.game.canvas.height / 2 - 75,
-            this.questionList[this.currentQuestionIndex].text,
-            {
-                fontFamily: 'Courier New', color: '#ffffff', wordWrap: {
-                    width: 200, useAdvancedWrap: true
-                } 
+            this.text = this.add.text(
+                
+                this.sys.game.canvas.width / 2 - 100,
+                this.sys.game.canvas.height / 2 - 75,
+                this.questionList[this.currentQuestionIndex].text,
+                {
+                    fontFamily: 'Courier New', color: '#ffffff', wordWrap: {
+                        width: 200, useAdvancedWrap: true
+                    } 
+                }
+            );
+            this.isShowingQuestion = true;
+            //if it is a boolean answer buttons appear
+             if( typeof this.questionList[this.currentQuestionIndex].answer == "boolean"){
+                this.trueButton.visible = true;
+                this.falseButton.visible = true;
+             }
+            else{
+                this.nameInput.visible = true; // otherwise show text input box
             }
-        );
-
-        //if it is a boolean answer buttons appear
-        if( typeof this.questionList[this.currentQuestionIndex].answer == "boolean"){
-            this.trueButton.visible = true;
-            this.falseButton.visible = true;
-        }
-        else{
-        this.nameInput.visible = true; // otherwise show text input box
         }
     },
 
     // TODO: Parse an answer from this method
     checkAnswer: function(userAnswer)
     {
-        console.log("Users Answer:");
-        console.log(userAnswer);
-        console.log("Correct Answer:");
-        console.log(this.questionList[this.currentQuestionIndex].answer);
+        //console.log("Input text:");
+        //console.log(userAnswer);
+        //console.log("Correct Answer:");
+        //console.log(this.questionList[this.currentQuestionIndex].answer);
 
         let correctAnswer = this.questionList[this.currentQuestionIndex].answer;
         if (typeof correctAnswer === "boolean") {
@@ -248,8 +274,8 @@ var MyScene = new Phaser.Class({
         else if (typeof correctAnswer === "number") {
             returnVal = this.questionList[this.currentQuestionIndex].answer === parseInt(userAnswer);
         }
-        console.log("Did the user get the right answer?")
-        console.log(returnVal);
+        //console.log("Did the user get the right answer?")
+        //console.log(returnVal);
         return returnVal;
     },
 
@@ -261,6 +287,7 @@ var MyScene = new Phaser.Class({
         this.currentQuestionIndex = null; 
         this.text.destroy();
         this.r1.destroy();   
+        this.isShowingQuestion = false; 
     },
 
     onObjectClicked: function (object) {
