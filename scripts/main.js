@@ -16,6 +16,7 @@ var MyScene = new Phaser.Class({
                     load: 'load',
                     input: 'input'
                 }
+
             };
 
             Phaser.Scene.call(this, config)
@@ -29,6 +30,8 @@ var MyScene = new Phaser.Class({
         this.load.image('star', '../assets/star.png');
         this.load.html("form", "../templates/form.html");
         this.load.image('bg', '../assets/space.jpeg');
+        this.load.audio('laser', '../assets/laser.mp3' );
+        
 
     },
     targets: [],
@@ -43,6 +46,17 @@ var MyScene = new Phaser.Class({
         gameHeight = this.sys.game.canvas.height;
 
         let count = 0;
+        
+				
+
+                //game.sound.context.resume();
+        if (game.sound.context.state === 'suspended') {
+					game.sound.context.resume();
+        }
+            
+        
+        var laser = this.sound.add('laser');
+        
     
         for (let i = 20; i < gameWidth; i += 50) {
             for (let j = 50; j < gameHeight; j += 50) {
@@ -83,7 +97,8 @@ var MyScene = new Phaser.Class({
                 this.currentQuestionIndex = null; 
                 this.text.destroy();
                 this.r1.destroy();  
-                this.isShowingQuestion = false;     
+                this.isShowingQuestion = false;  
+                this.laser.play()   
             
             }
             else {
@@ -230,6 +245,7 @@ var MyScene = new Phaser.Class({
 
     onObjectClicked: function (object) {
         return function() {
+            
             // Disable the stars
             object.setActive(false).setVisible(false);
             // Pop up the question
@@ -255,6 +271,7 @@ let config = {
             debug: false,
         },
     },
+    //audio: {disableWebaAudio:false},
     scene: MyScene
 };
 
