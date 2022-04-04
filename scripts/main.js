@@ -240,7 +240,7 @@ var MyScene = new Phaser.Class({
             );
             this.isShowingQuestion = true;
             //if it is a boolean answer buttons appear
-             if( typeof this.questionList[this.currentQuestionIndex].answer == "boolean"){
+             if( typeof this.questionList[this.currentQuestionIndex].answer === 'boolean') {
                 this.trueButton.visible = true;
                 this.falseButton.visible = true;
              }
