@@ -66,8 +66,8 @@ var MyScene = new Phaser.Class({
         this.trueButton.setInteractive();
         this.trueButton.visible = false;
 
-        this.falseButton.on('pointerdown', this.onButtonClicked(this.falseButton))
-        this.trueButton.on('pointerdown', this.onButtonClicked(this.trueButton))
+        this.falseButton.on('pointerdown', this.onButtonClicked(false))
+        this.trueButton.on('pointerdown', this.onButtonClicked(true))
 
         //this will listen for a down event
         //on every object that is set interactive
@@ -75,8 +75,6 @@ var MyScene = new Phaser.Class({
         this.input.on('gameobjectdown', this.onObjectClicked);
             
         this.scoreText = this.add.text(gameWidth - 200, this.sys.game.canvas.height - 600, 'score:' + this.score, { margin: "100px", fontSize: '24pt' });
-
-        //this.add.image(400, 300, 'bg');
 
         this.nameInput = this.add.dom(this.sys.game.canvas.width / 2, this.sys.game.canvas.height - 75).createFromCache("form");
         this.nameInput.visible = false; //start the game without the text input hidden
@@ -87,47 +85,15 @@ var MyScene = new Phaser.Class({
         this.returnKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
 
         this.returnKey.on("down", event => {
-            this.userAnswer = this.nameInput.getChildByName("name").value;
-            let userAnsweredCorrectly = this.checkAnswer(this.userAnswer);
-            if (userAnsweredCorrectly === true) {  
+            let userAnsweredCorrectly = this.checkAnswer(this.nameInput.getChildByName("name").value);
+            if (userAnsweredCorrectly) {  
                 this.handleCorrectAnswer();         
             }
             else {
                 this.correctText.setText("Wrong!");
             }
-            userTypedAnswer.value=""; //reset text inside text input box
             this.incrementScore(userAnsweredCorrectly);
         });
-
-        // this.falseButton.on("click", event => {
-        //     if (this.checkAnswer(false)) {  
-        //         this.handleCorrectAnswer();         
-        //     }
-        //     else {
-        //         this.correctText.setText("Wrong!");
-        //     }
-        //     this.incrementScore(userAnsweredCorrectly);
-        // });
-
-        // this.trueButton.on("click", event => {
-        //     console.log("clicked");
-        //     if (this.checkAnswer(true)) {  
-        //         this.handleCorrectAnswer();         
-        //     }
-        //     else {
-        //         this.correctText.setText("Wrong!");
-        //     }
-        //     this.incrementScore(userAnsweredCorrectly);
-        // });
-
-
-       
-
-
-        
-
-        
-
     },
 
     /**
@@ -139,8 +105,6 @@ var MyScene = new Phaser.Class({
         if (game.input.mousePointer.isDown) {
             x = game.input.mousePointer.x;
             y = game.input.mousePointer.y
-            //console.log(x, y);
-            
         }
 
         starToTurnOnIndex = Math.floor(Math.random() * this.targets.length);
@@ -160,8 +124,6 @@ var MyScene = new Phaser.Class({
         //timedEvent = this.time.addEvent({ delay: 1000, callback: onEvent, callbackScope: this, loop: true });
     },
 
-    // TODO: Create a question answer type (int/boolean)
-    // TODO: Create a question JS constructor
     questionList: [
         
 
@@ -176,8 +138,6 @@ var MyScene = new Phaser.Class({
         new Question("if(Olaf has a nose && Olaf doesnt have eyebrows)", false), // Second part false
         new Question("if(There are 6 spirits && Elsa is the fifth spirit)", false), // First part false
         //add or questions, two true, first one true, second one true, both false
-        
-
 
         //Sports Themed questions
         new Question("LeBron James has won more NBA Championships than Michael Jordan", false),
@@ -187,13 +147,6 @@ var MyScene = new Phaser.Class({
         new Question("Columbus has a hockey team in the NHL", true),
         new Question("IF the Columbus Blue Jackets win the Semi Finals, they go to the Super Bowl", false),
         new Question("If the Buckeyes score a touchdown, they will gain 6 points", true),
-
-
-
-
- 
-
-
 
     ],
 //global variables
@@ -206,23 +159,18 @@ var MyScene = new Phaser.Class({
     targets: [], 
     falseButton: null, 
     trueButton: null,
-    userAnswer: null,
     isShowingQuestion: false,
 
-    incrementScore: function (answerResult) {
-        if (answerResult === true){
+    incrementScore: function () {
+        
             this.score+=1;
             this.scoreText.setText("Score: " + this.score);
-        }
-        console.log(this.score)
+        
     },
 
     showQuestion: function () {
         if (!this.isShowingQuestion) {
             this.r1 = this.add.rectangle(this.sys.game.canvas.width / 2, this.sys.game.canvas.height / 2, 300, 200, 0x3c3c3f);
-            //r1 is undefined
-
-            this.nameInput.visible = true; //show text input box
 
             // Randomizer for questions
             this.currentQuestionIndex = Math.floor(Math.random() * this.questionList.length);
@@ -240,7 +188,7 @@ var MyScene = new Phaser.Class({
             );
             this.isShowingQuestion = true;
             //if it is a boolean answer buttons appear
-             if( typeof this.questionList[this.currentQuestionIndex].answer == "boolean"){
+             if( typeof this.questionList[this.currentQuestionIndex].answer === "boolean"){
                 this.trueButton.visible = true;
                 this.falseButton.visible = true;
              }
@@ -250,33 +198,9 @@ var MyScene = new Phaser.Class({
         }
     },
 
-    // TODO: Parse an answer from this method
     checkAnswer: function(userAnswer)
     {
-        //console.log("Input text:");
-        //console.log(userAnswer);
-        //console.log("Correct Answer:");
-        //console.log(this.questionList[this.currentQuestionIndex].answer);
-
-        let correctAnswer = this.questionList[this.currentQuestionIndex].answer;
-        if (typeof correctAnswer === "boolean") {
-            let userAnswerBoolean = true;
-           
-             if ((this.userAnswer) === ("false")) {
-                 userAnswerBoolean = false;
-             }
-            //returnVal = this.questionList[this.currentQuestionIndex].answer === userAnswerBoolean;
-            console.log(typeof this.questionList[this.currentQuestionIndex].answer);
-            console.log(typeof this.userAnswer);
-                        returnVal = this.questionList[this.currentQuestionIndex].answer === userAnswerBoolean;
-
-        }
-        else if (typeof correctAnswer === "number") {
-            returnVal = this.questionList[this.currentQuestionIndex].answer === parseInt(userAnswer);
-        }
-        //console.log("Did the user get the right answer?")
-        //console.log(returnVal);
-        return returnVal;
+        return this.questionList[this.currentQuestionIndex].answer === userAnswer;
     },
 
     handleCorrectAnswer: function(){
@@ -288,6 +212,7 @@ var MyScene = new Phaser.Class({
         this.text.destroy();
         this.r1.destroy();   
         this.isShowingQuestion = false; 
+        this.incrementScore();
     },
 
     onObjectClicked: function (object) {
@@ -299,30 +224,13 @@ var MyScene = new Phaser.Class({
         };
     },
 
-    onButtonClicked: function (object) {
+    onButtonClicked: function (booleanUserAnswer) {
         return function() {
-            // set user answer to false
-            if(object == this.falseButton) {
-                console.log('false clicked');
-                this.userAnswer = false;
-                if (this.scene.checkAnswer(false)) {  
-                    this.scene.handleCorrectAnswer();         
-                }
-                else {
-                    this.scene.correctText.setText("Wrong!");
-                }
-                this.scene.incrementScore(this.scene.checkAnswer(false));
+            if (this.scene.checkAnswer(booleanUserAnswer)) {  
+                this.scene.handleCorrectAnswer();         
             }
-            else if(object == this.trueButton){
-                this.userAnswer = true;
-                console.log('true clicked')
-                if (this.scene.checkAnswer(true)) {  
-                    this.scene.handleCorrectAnswer();         
-                }
-                else {
-                    this.scene.correctText.setText("Wrong!");
-                }
-                this.scene.incrementScore(this.scene.checkAnswer(true));
+            else {
+                this.scene.correctText.setText("Wrong!");
             }
         };
     },
