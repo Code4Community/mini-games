@@ -85,8 +85,7 @@ var MyScene = new Phaser.Class({
         this.returnKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
 
         this.returnKey.on("down", event => {
-            let userAnsweredCorrectly = this.checkAnswer(this.nameInput.getChildByName("name").value);
-            if (userAnsweredCorrectly) {  
+            if ( this.checkAnswer(this.nameInput.getChildByName("name").value) ) {  
                 this.handleCorrectAnswer();         
             }
             else {
