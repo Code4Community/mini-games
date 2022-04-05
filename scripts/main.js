@@ -92,7 +92,6 @@ var MyScene = new Phaser.Class({
             else {
                 this.correctText.setText("Wrong!");
             }
-            this.incrementScore(userAnsweredCorrectly);
         });
     },
 
