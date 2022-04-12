@@ -41,11 +41,12 @@ var MyScene = new Phaser.Class({
      */
     create: function () {
 
+        //set screen to size of window
         gameWidth = this.sys.game.canvas.width;
         gameHeight = this.sys.game.canvas.height;
 
+        //create 2-D array of all stars to be displayed on the screen
         let count = 0;
-    
         for (let i = 20; i < gameWidth; i += 50) {
             for (let j = 50; j < gameHeight; j += 50) {
                 this.targets[count] = this.add.image(i, j, "star");
@@ -58,22 +59,25 @@ var MyScene = new Phaser.Class({
             }
         }
 
+        //add a false button for T/F questions, set it interactive so you can click on it
         this.falseButton = this.add.image(gameWidth/2+100,gameHeight-100,"falseButton");
         this.falseButton.setInteractive();
         this.falseButton.visible = false;
 
+         //add a true button for T/F questions, set it interactive so you can click on it
         this.trueButton = this.add.image(gameWidth/2-100,gameHeight-100,"trueButton");
         this.trueButton.setInteractive();
         this.trueButton.visible = false;
 
+        //when you click on buttons, call method to handle the answer
         this.falseButton.on('pointerdown', this.onButtonClicked(false))
         this.trueButton.on('pointerdown', this.onButtonClicked(true))
 
         //this will listen for a down event
         //on every object that is set interactive
-
         this.input.on('gameobjectdown', this.onObjectClicked);
             
+        //set-up game screen and text
         this.scoreText = this.add.text(gameWidth - 200, this.sys.game.canvas.height - 600, 'score:' + this.score, { margin: "100px", fontSize: '24pt' });
 
         this.nameInput = this.add.dom(this.sys.game.canvas.width / 2, this.sys.game.canvas.height - 75).createFromCache("form");
@@ -83,6 +87,7 @@ var MyScene = new Phaser.Class({
 
         this.returnKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
 
+        //after user types in answer and presses enter, check their answer and handle it appropriatly 
         this.returnKey.on("down", event => {
             if ( this.checkAnswer(this.nameInput.getChildByName("name").value) ) {  
                 this.handleCorrectAnswer();         
@@ -98,16 +103,12 @@ var MyScene = new Phaser.Class({
      * Runs repeatedly on a cycle
      */
     update: function () {
-        var x, y;
-        if (game.input.mousePointer.isDown) {
-            x = game.input.mousePointer.x;
-            y = game.input.mousePointer.y
-        }
 
         starToTurnOnIndex = Math.floor(Math.random() * this.targets.length);
         
         twinkle(this.targets[starToTurnOnIndex]);//call the star function
 
+        //if the star is lit, add to its time, once it reaches a certain time remove the star from the screen
         for(let i = 0; i < this.targets.length; i++) {
             if(this.targets[i].visible === true){
                this.targets[i].time += 1;
@@ -117,13 +118,10 @@ var MyScene = new Phaser.Class({
                 this.targets[i].time = 0;
             }
         }
-        //check all stars, if they have been on for more than 3 seconds turn them off
-        //timedEvent = this.time.addEvent({ delay: 1000, callback: onEvent, callbackScope: this, loop: true });
     },
 
     questionList: [
         
-
         //Frozen themed questions
         new Question("if(Elsas Sister == Ana)", true),
         new Question("if(Olafs favorite season == summer)", true),
@@ -134,7 +132,6 @@ var MyScene = new Phaser.Class({
         new Question("if(Elsa is 18 years old && Ana is 21 years old)", false), // Elsa: 21, Ana: 18
         new Question("if(Olaf has a nose && Olaf doesnt have eyebrows)", false), // Second part false
         new Question("if(There are 6 spirits && Elsa is the fifth spirit)", false), // First part false
-        //add or questions, two true, first one true, second one true, both false
 
         //Sports Themed questions
         new Question("LeBron James has won more NBA Championships than Michael Jordan", false),
@@ -146,7 +143,7 @@ var MyScene = new Phaser.Class({
         new Question("If the Buckeyes score a touchdown, they will gain 6 points", true),
 
     ],
-//global variables
+    //global variables
     score: 0,
     currentQuestionIndex: null,
     scoreText: null,
@@ -159,10 +156,8 @@ var MyScene = new Phaser.Class({
     isShowingQuestion: false,
 
     incrementScore: function () {
-        
             this.score+=1;
             this.scoreText.setText("Score: " + this.score);
-        
     },
 
     showQuestion: function () {
@@ -172,6 +167,7 @@ var MyScene = new Phaser.Class({
             // Randomizer for questions
             this.currentQuestionIndex = Math.floor(Math.random() * this.questionList.length);
 
+            //add question text to screen
             this.text = this.add.text(
                 
                 this.sys.game.canvas.width / 2 - 100,
@@ -184,6 +180,7 @@ var MyScene = new Phaser.Class({
                 }
             );
             this.isShowingQuestion = true;
+
             //if it is a boolean answer buttons appear
              if( typeof this.questionList[this.currentQuestionIndex].answer === 'boolean') {
                 this.trueButton.visible = true;
@@ -203,13 +200,13 @@ var MyScene = new Phaser.Class({
     handleCorrectAnswer: function(){
         this.correctText.setText("Correct!");
         this.nameInput.visible = false; //remove the text input box
-        this.falseButton.visible = false;
-        this.trueButton.visible = false;
-        this.currentQuestionIndex = null; 
-        this.text.destroy();
-        this.r1.destroy();   
-        this.isShowingQuestion = false; 
-        this.incrementScore();
+        this.falseButton.visible = false; //remove the false button
+        this.trueButton.visible = false; //remove the true button
+        this.currentQuestionIndex = null;  //reset question index
+        this.text.destroy(); //remove text box
+        this.r1.destroy();   //remove box text sits on
+        this.isShowingQuestion = false; //no longer showing the question
+        this.incrementScore(); //add to the score as the user answered correctly
     },
 
     onObjectClicked: function (object) {
@@ -223,6 +220,8 @@ var MyScene = new Phaser.Class({
 
     onButtonClicked: function (booleanUserAnswer) {
         return function() {
+
+            //if they get the answer correct handle it, otherwise output wrong
             if (this.scene.checkAnswer(booleanUserAnswer)) {  
                 this.scene.handleCorrectAnswer();         
             }
@@ -253,11 +252,13 @@ let config = {
     scene: MyScene
 };
 
+//class for the questions that pop up
 function Question (text, answer) {
     this.text = text;
     this.answer = answer;
 }
 
+//turn a star on by setting it to active to make it clickable and visible
 function twinkle(object){
         object.setActive(true).setVisible(true);  
 }
