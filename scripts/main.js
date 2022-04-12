@@ -78,8 +78,7 @@ var MyScene = new Phaser.Class({
 
         this.nameInput = this.add.dom(this.sys.game.canvas.width / 2, this.sys.game.canvas.height - 75).createFromCache("form");
         this.nameInput.visible = false; //start the game without the text input hidden
-
-        this.message = this.add.text(640, 250, "Hello, --", { fontSize: '24pt' }).setOrigin(0.5);
+        
         this.correctText = this.add.text(240, 150, "", { fontSize: '24pt' }).setOrigin(0.5);
 
         this.returnKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
